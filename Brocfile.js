@@ -5,6 +5,7 @@ let packages = {
   concat: require('broccoli-concat'),
   funnel: require('broccoli-funnel'),
   reload: require('broccoli-livereload'),
+  svgstore: require('broccoli-svgstore'),
 };
 
 let appHtml = new packages.funnel('app', { files: ['index.html'] });
@@ -13,7 +14,8 @@ let fabric = new packages.funnel('node_modules/fabric/dist/', { files: ['fabric.
 let bootstrapJs = new packages.funnel('node_modules/bootstrap/dist/js', { files: ['bootstrap.min.js'], destDir: 'vendor/js' });
 let bootstrapCss = new packages.funnel('node_modules/bootstrap/dist/css', { files: ['bootstrap.min.css'], destDir: 'vendor/css' });
 let appCss = new packages.sass(['app/scss'], 'app.scss', 'css/app.css');
-
+let appIcons = new packages.funnel('app/images/icons');
+appIcons = new packages.svgstore(appIcons, { outputFile: 'images/icons.svg' });
 let appJs = new packages.babel('app/js', {
   browserPolyfill: true,
   minified: false,
@@ -38,7 +40,16 @@ appJs = new packages.concat(appJs, {
 
 appJs = new packages.funnel(appJs, { destDir: 'js' });
 
-let app = new packages.merge([appJs, appCss, appHtml, jquery, fabric, bootstrapJs, bootstrapCss], { overwrite: true });
+let app = new packages.merge([
+  appJs,
+  appCss,
+  appHtml,
+  appIcons,
+  jquery,
+  fabric,
+  bootstrapJs,
+  bootstrapCss
+], { overwrite: true });
 
 app = new packages.reload(app, {
   target: /^[a-zA-Z0-9._-]+.html$/
