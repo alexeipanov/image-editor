@@ -11,115 +11,144 @@
 
 <body>
   <div class="container">
-    <div class="d-flex flex-column m-4">
-      <nav class="navbar d-flex flex-row justify-content-between my-2 p-0">
-        <div>
-          <div class="input-group input-group-sm">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="input-image" accept=".jpg, .jpeg, .png">
-              <label class="custom-file-label" for="input-image">Choose file</label>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="btn-group" role="group" aria-label="zoom-control">
-            <button type="button" id="zoom-out" class="btn btn-light btn-sm">
-              <span class="icon"><svg><use href="images/icons.svg#search-minus"></use></svg></span>
-            </button>
-            <button type="button" id="zoom-in" class="btn btn-light btn-sm">
-              <span class="icon"><svg><use href="images/icons.svg#search-plus"></use></svg></span>
-            </button>
-          </div>
-        </div>
-        <div>
-          <div class="btn-group" role="group" aria-label="zoom-control">
-            <button type="button" id="undo" class="btn btn-light btn-sm">
-              <span class="icon"><svg><use href="images/icons.svg#undo"></use></svg></span>
-            </button>
-            <button type="button" id="redo" class="btn btn-light btn-sm">
-              <span class="icon"><svg><use href="images/icons.svg#redo"></use></svg></span>
-            </button>
-          </div>
-        </div>
-      </nav>
-      <div class="d-flex flex-row justify-content-center my-2 p-0">
-        <div>
-          <div class="canvas-wrapper">
-            <canvas id="editor" width="800" height="600"></canvas>
+
+    <div class="row p-0">
+      <div class="col-12 col-md-4 d-flex justify-content-start my-2">
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="input-image" accept=".jpg, .jpeg, .png">
+            <label class="custom-file-label" for="input-image">Choose file</label>
           </div>
         </div>
       </div>
-      <div class="d-flex flex-row justify-content-between my-2 p-0">
-        <div class="d-flex flex-column w-50">
-          <p class="my-1">Drawing</p>
-          <div class="btn-group my-2" role="group" aria-label="drawing-palette-control">
-            <button type="button" class="btn btn-light btn-sm set-drawing-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon icon-x-small red"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            <button type="button" class="btn btn-light btn-sm set-drawing-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small yellow"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            <button type="button" class="btn btn-light btn-sm set-drawing-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small green"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            <button type="button" class="btn btn-light btn-sm set-drawing-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small blue"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-          </div>
-          <div>
-            <div class="btn-group my-2" role="group" aria-label="tool-control">
-              <button type="button" id="pencil" class="btn btn-light btn-sm active" data-toggle="button" aria-pressed="true">
-                <span class="icon"><svg><use href="images/icons.svg#pencil-alt"></use></svg></span>
-              </button>
-              <button type="button" id="brush" class="btn btn-light btn-sm" data-toggle="button" aria-pressed="false">
-                <span class="icon"><svg><use href="images/icons.svg#paint-brush"></use></svg></span>
-              </button>
-            </div>
-            <div class="btn-group my-2" role="group" aria-label="tool-size-control">
-              <button type="button" class="btn btn-light btn-sm set-drawing-size active" data-size="5" data-toggle="button" aria-pressed="true"><span class="icon icon-xx-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light btn-sm set-drawing-size" data-size="10" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light btn-sm set-drawing-size" data-size="20" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex flex-column w-50">
-          <p class="my-1">Text entry</p>
-          <div class="btn-group my-2" role="group" aria-label="text-palette-control">
-            <button type="button" class="btn btn-light btn-sm set-text-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon icon-x-small red"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            <button type="button" class="btn btn-light btn-sm set-text-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small yellow"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            <button type="button" class="btn btn-light btn-sm set-text-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small green"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-            <button type="button" class="btn btn-light btn-sm set-text-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small blue"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-          </div>
-        </div>
-        <div class="d-flex flex-column w-50">
-          <p class="my-1">Size</p>
-          <div class="d-flex">
-            <div class="col-4 p-0">
-              <div class="input-group input-group-sm  mr-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="width">Width</span>
-                </div>
-                <input type="text" class="form-control" name="width" placeholder="" aria-label="width">
-              </div>
-            </div>
-            <div class="col-4 p-0 ml-1">
-              <div class="input-group input-group-sm  mr-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="height">Height</span>
-                </div>
-                <input type="text" class="form-control" name="height" placeholder="" aria-label="height">
-              </div>
-            </div>
-            <div class="col-6">
-              <button type="button" id="crop" class="btn btn-light btn-sm mr-2">Crop</button>
-              <button type="button" id="resize" class="btn btn-light btn-sm">Resize</button>
-            </div>
-          </div>
+      <div class="col-6 col-md-4 d-flex justify-content-start justify-content-md-center my-2">
+        <div class="btn-group" role="group" aria-label="zoom-control">
+          <button type="button" id="zoom-out" class="btn btn-light">
+            <span class="icon"><svg><use href="images/icons.svg#search-minus"></use></svg></span>
+          </button>
+          <button type="button" id="zoom-in" class="btn btn-light">
+            <span class="icon"><svg><use href="images/icons.svg#search-plus"></use></svg></span>
+          </button>
         </div>
       </div>
-      <div class="d-flex flex-row justify-content-end my-2">
-        <div>
-          <nav class="navbar d-flex flex-row justify-content-between my-2 p-0">
-            <div>
-              <button type="button" id="save" class="btn btn-primary">Save</button>
-              <button type="button" id="cancel" class="btn btn-light">Cancel</button>
-            </div>
-          </nav>
+      <div class="col-6 col-md-4 d-flex justify-content-end my-2">
+        <div class="btn-group" role="group" aria-label="zoom-control">
+          <button type="button" id="undo" class="btn btn-light">
+            <span class="icon"><svg><use href="images/icons.svg#undo"></use></svg></span>
+          </button>
+          <button type="button" id="redo" class="btn btn-light">
+            <span class="icon"><svg><use href="images/icons.svg#redo"></use></svg></span>
+          </button>
         </div>
       </div>
     </div>
+
+    <div class="row p-0">
+      <div class="col-12 d-flex justify-content-center my-2">
+        <div class="canvas-wrapper">
+          <canvas id="editor" width="800" height="600"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row p-0">
+      <div class="col-12 col-md-3 my-2">
+        <div class="row">
+          <div class="col-12">
+            <p class="my-0">Drawing</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="btn-group my-2" role="group" aria-label="drawing-palette-control">
+              <button type="button" class="btn btn-light set-drawing-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon red"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon yellow"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon green"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon blue"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="btn-group my-2" role="group" aria-label="tool-control">
+              <button type="button" id="pencil" class="btn btn-light active" data-toggle="button" aria-pressed="true">
+                <span class="icon"><svg><use href="images/icons.svg#pencil-alt"></use></svg></span>
+              </button>
+              <button type="button" id="brush" class="btn btn-light" data-toggle="button" aria-pressed="false">
+                <span class="icon"><svg><use href="images/icons.svg#paint-brush"></use></svg></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="btn-group my-2" role="group" aria-label="tool-size-control">
+              <button type="button" class="btn btn-light set-drawing-size active" data-size="5" data-toggle="button" aria-pressed="true"><span class="icon icon-xx-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-size" data-size="10" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-size" data-size="20" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 my-2">
+        <div class="row">
+          <div class="col-12">
+            <p class="my-0">Text entry</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="btn-group my-2" role="group" aria-label="text-palette-control">
+              <button type="button" class="btn btn-light set-text-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon red"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon yellow"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon green"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon blue"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 my-2">
+        <div class="row">
+          <div class="col-12">
+            <p class="my-0">Size</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 col-lg-4 my-2">
+            <div class="input-group input-group-sm  mr-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="width">Width</span>
+              </div>
+              <input type="text" class="form-control" name="width" placeholder="" aria-label="width">
+            </div>
+          </div>
+
+          <div class="col-6 col-lg-4 my-2">
+            <div class="input-group input-group-sm mr-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="height">Height</span>
+              </div>
+              <input type="text" class="form-control" name="height" placeholder="" aria-label="height">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-12 my-2">
+            <button type="button" id="crop" class="btn btn-light btn-sm mr-2">Crop</button>
+            <button type="button" id="resize" class="btn btn-light btn-sm">Resize</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row p-0">
+      <div class="col-12 d-flex justify-content-end my-2">
+        <button type="button" id="save" class="btn btn-primary mx-1">Save</button>
+        <button type="button" id="cancel" class="btn btn-light mx-1">Cancel</button>
+      </div>
+    </div>
+
   </div>
   <script src="vendor/js/jquery.min.js"></script>
   <script src="vendor/js/fabric.js"></script>
