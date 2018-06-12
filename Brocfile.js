@@ -6,11 +6,14 @@ let packages = {
   funnel: require('broccoli-funnel'),
   reload: require('broccoli-livereload'),
   svgstore: require('broccoli-svgstore'),
+  uglify: require('broccoli-optimize-js'),
 };
 
 let appHtml = new packages.funnel('app', { files: ['index.html'] });
 let jquery = new packages.funnel('node_modules/jquery/dist/', { files: ['jquery.min.js'], destDir: 'vendor/js' });
-let fabric = new packages.funnel('node_modules/fabric/dist/', { files: ['fabric.js'], destDir: 'vendor/js' });
+let fabric = new packages.funnel('node_modules/fabric/dist/', { files: ['fabric.js'] });
+fabric = new packages.uglify(fabric, { mangle: true, compress: true, sourceMap: false });
+fabric = new packages.funnel(fabric, { destDir: 'vendor/js' });
 let bootstrapJs = new packages.funnel('node_modules/bootstrap/dist/js', { files: ['bootstrap.min.js'], destDir: 'vendor/js' });
 let bootstrapCss = new packages.funnel('node_modules/bootstrap/dist/css', { files: ['bootstrap.min.css'], destDir: 'vendor/css' });
 let appCss = new packages.sass(['app/scss'], 'app.scss', 'css/app.css');
