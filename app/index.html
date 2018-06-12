@@ -61,20 +61,20 @@
         <div class="row">
           <div class="col-12">
             <div class="btn-group my-2" role="group" aria-label="drawing-palette-control">
-              <button type="button" class="btn btn-light set-drawing-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon red"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-drawing-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon yellow"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-drawing-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon green"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-drawing-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon blue"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#ff0000" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
             <div class="btn-group my-2" role="group" aria-label="tool-control">
-              <button type="button" id="pencil" class="btn btn-light active" data-toggle="button" aria-pressed="true">
+              <button type="button" id="pencil" class="btn tool-btn btn-light" data-toggle="button" aria-pressed="false">
                 <span class="icon"><svg><use href="images/icons.svg#pencil-alt"></use></svg></span>
               </button>
-              <button type="button" id="brush" class="btn btn-light" data-toggle="button" aria-pressed="false">
+              <button type="button" id="brush" class="btn tool-btn btn-light" data-toggle="button" aria-pressed="false">
                 <span class="icon"><svg><use href="images/icons.svg#paint-brush"></use></svg></span>
               </button>
             </div>
@@ -83,9 +83,9 @@
         <div class="row">
           <div class="col-12">
             <div class="btn-group my-2" role="group" aria-label="tool-size-control">
-              <button type="button" class="btn btn-light set-drawing-size active" data-size="5" data-toggle="button" aria-pressed="true"><span class="icon icon-xx-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-drawing-size" data-size="10" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-drawing-size" data-size="20" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-size" data-size="1" data-toggle="button" aria-pressed="false"><span class="icon icon-xx-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-size" data-size="5" data-toggle="button" aria-pressed="false"><span class="icon icon-x-small"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-drawing-size" data-size="10" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
             </div>
           </div>
         </div>
@@ -99,10 +99,22 @@
         <div class="row">
           <div class="col-12">
             <div class="btn-group my-2" role="group" aria-label="text-palette-control">
-              <button type="button" class="btn btn-light set-text-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon red"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-text-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon yellow"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-text-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon green"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
-              <button type="button" class="btn btn-light set-text-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon blue"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color active" data-color="#ff0000" data-toggle="button" aria-pressed="true"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color" data-color="#ffff00" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color" data-color="#008000" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+              <button type="button" class="btn btn-light set-text-color" data-color="#0000ff" data-toggle="button" aria-pressed="false"><span class="icon"><svg><use href="images/icons.svg#square-full"></use></svg></span></button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="btn-group my-2" role="group" aria-label="text-control">
+              <button type="button" id="text" class="btn tool-btn btn-light" data-toggle="button" aria-pressed="false">
+                <span class="icon"><svg><use href="images/icons.svg#font"></use></svg></span>
+              </button>
+              <button type="button" id="select" class="btn tool-btn btn-light" data-toggle="button" aria-pressed="false">
+                <span class="icon"><svg><use href="images/icons.svg#expand"></use></svg></span>
+              </button>
             </div>
           </div>
         </div>
