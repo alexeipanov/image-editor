@@ -1,7 +1,10 @@
 # image-editor
 ## Setup and build
 `npm install` - install dependencies
+
 `broccoli build dist` - build project and save it to dist directory
+
+`broccoli serve` - run live-reload server on your local machine.
 
 ## Configure colors, size, opacity, text options
 ### Colors
