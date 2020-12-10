@@ -1,0 +1,111 @@
+@import 'vars';
+@import 'functions';
+@import 'roboto';
+@import 'layout';
+@import 'elements';
+
+body {
+  --themeColor: _color(theme);
+  color: _color(text-base);
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  text-align: justify;
+
+  a {
+    color: _color(base-link);
+
+    &:hover {
+      color: darken(_color(base-link), 10%);
+      transition: color _duration(hover) ease;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: _color(base-header);
+    font-weight: 700;
+    margin: _size(element) * .5 0 _size(element);
+    text-align: left;
+  }
+
+  h1 {
+    font-size: _size(element) * 2;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: _size(element) * 1.75;
+  }
+
+  h3 {
+    font-size: _size(element) * 1.5;
+  }
+
+  h4 {
+    font-size: _size(element) * 1.25;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .accent {
+    color: _color(accent);
+  }
+
+}
+
+header {
+  background-color: _color(header-bg);
+  color: _color(header-color);
+
+  a {
+    color: _color(header-link);
+  }
+}
+
+footer {
+  background-color: _color(dark-bg);
+  color: _color(footer-color);
+  font-size: 90%;
+
+  a {
+    color: _color(footer-link);
+  }
+}
+
+svg {
+  height: 100%;
+  width: 100%;
+}
+
+.icon {
+  fill: currentColor;
+
+  &.inline {
+    align-items: center;
+    display: inline-flex;
+    height: _size(element);
+    margin-right: _size(element) * .25;
+    max-width: _size(element);
+
+    &::before {
+      content: '.';
+      font-size: inherit;
+      visibility: hidden;
+      width: 0;
+    }
+  }
+
+  &.xl {
+    display: flex;
+    height: 3rem;
+    max-width: 3rem;
+  }
+}

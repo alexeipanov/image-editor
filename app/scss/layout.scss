@@ -1,0 +1,77 @@
+body,
+header,
+footer,
+main,
+section {
+  display: grid;
+}
+
+body {
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(_size(element), auto) 1fr minmax(_size(element), auto);
+  min-height: 100vh;
+}
+
+aside {
+  overflow: hidden;
+  margin-right: .5 * _size(padding);
+}
+
+main {
+  grid-template-rows: minmax(0, auto) minmax(0, auto) 1fr;
+}
+
+header,
+footer {
+  padding: _size(padding) * .5 _size(padding);
+}
+
+section {
+  padding: _size(padding) * 2 _size(padding);
+
+  &.center {
+    justify-items: center;
+  }
+
+  &.app {
+    grid-template-columns: 1fr 3fr;
+  }
+}
+
+.column {
+  align-items: stretch;
+  display: grid;
+  grid-gap: _size(element) * 4;
+  grid-template-columns: calc((100vw - #{_size(element)} * 2) / 2 + #{_size(element)} * 14);
+  grid-template-rows: 1fr;
+  justify-items: stretch;
+}
+
+.logo {
+  grid-column: 1 / 5;
+}
+
+.account {
+  grid-column: 5 / 13;
+  justify-self: end;
+}
+
+.copyright {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+
+.social {
+  grid-column: 10 / 13;
+  grid-row: 1 / 2;
+}
+
+.footer-menu {
+  grid-column: 4 / 10;
+  grid-row: 1 / 3;
+}
+
+.subscribe {
+  grid-column: 10 / 13;
+  grid-row: 2 / 3;
+}

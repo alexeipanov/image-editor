@@ -1,0 +1,58 @@
+$palette: (
+  accent: rgb(255, 35, 140),
+  theme: rgb(0, 160, 255),
+  theme-bg: rgb(165, 215, 255),
+
+  base-color: rgb(50, 50, 50),
+  base-inverted: rgb(255, 255, 255),
+  base-bg: rgb(255, 255, 255),
+  base-link: rgb(0, 160, 255),
+  base-header: rgb(100, 100, 100),
+
+  dark-color: rgb(50, 50, 50),
+  dark-bg: rgb(235, 245, 255),
+
+  header-color: rgb(50, 50, 50),
+  header-bg: rgb(255, 255, 255),
+  header-link: rgb(0, 160, 255),
+
+  footer-color: rgb(50, 50, 50),
+  footer-link: rgb(0, 160, 255),
+  footer-bg: rgb(255, 255, 255),
+
+  border: rgb(205, 205, 205),
+  error: rgb(230, 80, 40),
+  inactive-color: rgb(100, 100, 100),
+  inactive-bg: rgb(205, 205, 205),
+
+
+
+
+
+  text-blue: rgb(60, 75, 130),
+  text-base: rgb(99, 99, 99),
+  text-black: rgb(36, 36, 36),
+  text-bg: rgb(255, 255, 255),
+  text-success: rgb(0, 255, 0),
+  shadow: rgb(170, 170, 170),
+  light-blue: rgb(31, 123, 203),
+  tcell_header: rgb(174, 215, 235),
+  tcell: rgb(255, 255, 255),
+
+
+  sidebar-bg: rgb(55, 65, 80),
+  sidebar-fg: rgb(180, 190, 200),
+  sidebar-link: lighten(rgb(180, 190, 200), 10%),
+);
+
+$size: (
+  element: 1rem,
+  padding: 1rem,
+  margin: 1rem,
+  radius: 2px,
+);
+
+$duration: (
+  default: .5s,
+  hover: .5s,
+);
