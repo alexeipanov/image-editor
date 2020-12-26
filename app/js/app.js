@@ -1,5 +1,11 @@
 // import ImageEditor from './editor';
 window.addEventListener('load', () => {
+  let app = new Vue({
+    el: 'section.app',
+    data: {
+    }
+  });
+
   let editor = new ImageEditor({
     id: 'editor',
     width: 800,
@@ -15,6 +21,7 @@ window.addEventListener('load', () => {
   for (let accordion of accordsCollection) {
     new Accordion(accordion);
   }
+
 });
 
 class Tab {
