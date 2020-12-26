@@ -20,7 +20,7 @@
     <aside>
       <div class="accordion">
         <div class="panel">
-          <div class="header">{{ message }}</div>
+          <div class="header">Text</div>
           <div class="body">
             I currently have a Sparkpost javascript emailer file to send email responses from a localhost html file. I currently changed my send from email and now possibly need to change Crypt the APK. This is not something I know how to do. I am looking for someone to explain to me and show me how to change this so I can do it in the future. Thank you.
           </div>
@@ -47,18 +47,7 @@
     </aside>
 
     <main>
-      <nav class="bar">
-        <ul>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#file"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#undo"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#redo"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#font"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#image"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#palette"></use></svg></li>
-          <li class="icon-button"><svg class="icon"><use href="images/icons.svg#icons"></use></svg></li>
-        </ul>
-      </nav>
+      <toolbar></toolbar>
       <canvas id="editor"></canvas>
       <div>
 
@@ -92,5 +81,20 @@
   <script src="js/browser-polyfill.js"></script>
   <script src="js/editor.js"></script>
   <script src="js/app.js"></script>
+
+  <template id="toolbar">
+    <nav class="bar">
+      <ul>
+        <li class="icon-button" v-on:click="openPanel('new')"><svg class="icon"><use href="images/icons.svg#file"></use></svg></li>
+        <li class="icon-button" v-on:click="undo"><svg class="icon"><use href="images/icons.svg#undo"></use></svg></li>
+        <li class="icon-button" v-on:click="redo"><svg class="icon"><use href="images/icons.svg#redo"></use></svg></li>
+        <li class="icon-button" v-on:click="remove"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
+        <li class="icon-button" v-on:click="openPanel('text')"><svg class="icon"><use href="images/icons.svg#font"></use></svg></li>
+        <li class="icon-button" v-on:click="openPanel('image')"><svg class="icon"><use href="images/icons.svg#image"></use></svg></li>
+        <li class="icon-button" v-on:click="openPanel('background')"><svg class="icon"><use href="images/icons.svg#palette"></use></svg></li>
+        <li class="icon-button" v-on:click="openPanel('icon')"><svg class="icon"><use href="images/icons.svg#icons"></use></svg></li>
+      </ul>
+    </nav>
+  </template>
 </body>
 </html>

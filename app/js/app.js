@@ -1,10 +1,28 @@
 // import ImageEditor from './editor';
 window.addEventListener('load', () => {
+  Vue.component('toolbar', {
+    data: function () {
+      return {
+
+      }
+    },
+    methods: {
+      openPanel(panel) {
+        console.log('open new document panel: ' + panel);
+      },
+      remove() {},
+      undo() {},
+      redo() {},
+    },
+    template: '#toolbar'
+  });
+
   let app = new Vue({
     el: 'section.app',
     data: {
     }
   });
+
 
   let editor = new ImageEditor({
     id: 'editor',
