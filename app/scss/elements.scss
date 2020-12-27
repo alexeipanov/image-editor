@@ -194,51 +194,34 @@ nav {
 .accordion {
   .panel {
     display: flex;
-    overflow: hidden;
     flex-direction: column;
+    overflow: hidden;
     position: relative;
 
     .header {
+      background-color: _color(base-bg);
       overflow: hidden;
       position: relative;
-      z-index: 2;
-      background-color: _color(base-bg);
+      z-index: 0;
     }
-
 
     .body {
-      height: 0;
-      transform: translateY(-100%);
-      z-index: -5;
+      animation: slide _duration(default);
+      height: auto;
+      transform: translateY(0);
+      z-index: -10;
     }
-
-    &.active {
-
-      .body {
-        animation: slideUp _duration(default);
-        animation-fill-mode: forwards;
-        animation-direction: normal;
-      }
-    }
-
-    &.initial {
-
-      .body {
-        height: 100%;
-        transform: translateY(0);
-      }
-    }
-
   }
 }
-    @keyframes slideUp {
-      from {
-        height: 0;
-        transform: translateY(-100%);
-      }
 
-      to {
-        height: 100%;
-        transform: translateY(0);
-      }
-    }
+@keyframes slide {
+  from {
+    height: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    height: 100%;
+    transform: translateY(0);
+  }
+}

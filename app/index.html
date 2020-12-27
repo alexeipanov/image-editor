@@ -18,36 +18,11 @@
 
   <section class="app">
     <aside>
-      <div class="accordion">
-        <div class="panel">
-          <div class="header">Text</div>
-          <div class="body">
-            I currently have a Sparkpost javascript emailer file to send email responses from a localhost html file. I currently changed my send from email and now possibly need to change Crypt the APK. This is not something I know how to do. I am looking for someone to explain to me and show me how to change this so I can do it in the future. Thank you.
-          </div>
-        </div>
-        <div class="panel">
-          <div class="header">Icons</div>
-          <div class="body">
-          Looking for an experienced mobile web designer. Only need designs, not HTML or CSS. We need to create a better experience of our current website for mobile users. This could be a project that goes on for a few months.
-          </div>
-        </div>
-        <div class="panel">
-          <div class="header">Images</div>
-          <div class="body">
-          Looking for an experienced developer in both PHP and Node.js. Developer should "copy" the functionality of 'openssl_encrypt' encryption function from PHP to Node.js. Just for 'AES-256-CBC' algorithem. I have a code encrypting a string (utf8) in PHP and I should get the same functionality in Node. Current code in PHP is: openssl_encrypt("{​{​VALUE_TO_ENCRYPT}​}​", "AES-256-CBC", "{​{​KEY}​}​", 0, '{​{​IV}​}​') Value,Key and IV will be provided as utf8 encoded strings
-          </div>
-        </div>
-        <div class="panel">
-          <div class="header">Background</div>
-          <div class="body">
-          Looking for an experienced developer in both PHP and Node.js. Developer should "copy" the functionality of 'openssl_encrypt' encryption function from PHP to Node.js. Just for 'AES-256-CBC' algorithem. I have a code encrypting a string (utf8) in PHP and I should get the same functionality in Node. Current code in PHP is: openssl_encrypt("{​{​VALUE_TO_ENCRYPT}​}​", "AES-256-CBC", "{​{​KEY}​}​", 0, '{​{​IV}​}​') Value,Key and IV will be provided as utf8 encoded strings
-          </div>
-        </div>
-      </div>
+      <sidebar v-bind:panel.sync="panel"></sidebar>
     </aside>
 
     <main>
-      <toolbar></toolbar>
+      <toolbar v-bind:panel.sync="panel"></toolbar>
       <canvas id="editor"></canvas>
       <div>
 
@@ -95,6 +70,41 @@
         <li class="icon-button" v-on:click="openPanel('icon')"><svg class="icon"><use href="images/icons.svg#icons"></use></svg></li>
       </ul>
     </nav>
+  </template>
+
+  <template id="sidebar">
+    <div class="accordion">
+      <div class="panel">
+        <div class="header" v-on:click="openPanel('new')">New</div>
+        <div class="body" v-if="panel === 'new'">
+          I currently have a Sparkpost javascript emailer file to send email responses from a localhost html file. I currently changed my send from email and now possibly need to change Crypt the APK. This is not something I know how to do. I am looking for someone to explain to me and show me how to change this so I can do it in the future. Thank you.
+        </div>
+      </div>
+      <div class="panel">
+        <div class="header" v-on:click="openPanel('text')">Text</div>
+        <div class="body" v-if="panel === 'text'">
+          I currently have a Sparkpost javascript emailer file to send email responses from a localhost html file. I currently changed my send from email and now possibly need to change Crypt the APK. This is not something I know how to do. I am looking for someone to explain to me and show me how to change this so I can do it in the future. Thank you.
+        </div>
+      </div>
+      <div class="panel">
+        <div class="header" v-on:click="openPanel('image')">Images</div>
+        <div class="body" v-if="panel === 'image'">
+        Looking for an experienced developer in both PHP and Node.js. Developer should "copy" the functionality of 'openssl_encrypt' encryption function from PHP to Node.js. Just for 'AES-256-CBC' algorithem. I have a code encrypting a string (utf8) in PHP and I should get the same functionality in Node. Current code in PHP is: openssl_encrypt("{​{​VALUE_TO_ENCRYPT}​}​", "AES-256-CBC", "{​{​KEY}​}​", 0, '{​{​IV}​}​') Value,Key and IV will be provided as utf8 encoded strings
+        </div>
+      </div>
+      <div class="panel">
+        <div class="header" v-on:click="openPanel('background')">Background</div>
+        <div class="body" v-if="panel === 'background'">
+        Looking for an experienced developer in both PHP and Node.js. Developer should "copy" the functionality of 'openssl_encrypt' encryption function from PHP to Node.js. Just for 'AES-256-CBC' algorithem. I have a code encrypting a string (utf8) in PHP and I should get the same functionality in Node. Current code in PHP is: openssl_encrypt("{​{​VALUE_TO_ENCRYPT}​}​", "AES-256-CBC", "{​{​KEY}​}​", 0, '{​{​IV}​}​') Value,Key and IV will be provided as utf8 encoded strings
+        </div>
+      </div>
+      <div class="panel">
+        <div class="header" v-on:click="openPanel('icon')">Icons</div>
+        <div class="body" v-if="panel === 'icon'">
+        Looking for an experienced mobile web designer. Only need designs, not HTML or CSS. We need to create a better experience of our current website for mobile users. This could be a project that goes on for a few months.
+        </div>
+      </div>
+    </div>
   </template>
 </body>
 </html>
