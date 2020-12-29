@@ -1,0 +1,9 @@
+button {
+  border: none;
+  border-radius: _size(radius);
+  background-color: rgba(_color(theme), .5);
+  color: _color(base-bg);
+  cursor: pointer;
+  height: 1.5 * _size(element);
+  padding: 0 _size(padding);
+}

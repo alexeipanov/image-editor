@@ -197,19 +197,24 @@ nav {
     flex-direction: column;
     overflow: hidden;
     position: relative;
+    margin-bottom: .5 * _size(margin);
 
     .header {
       background-color: _color(base-bg);
+      cursor: pointer;
+      font-weight: bold;
       overflow: hidden;
       position: relative;
-      z-index: 0;
+      z-index: 10;
     }
 
     .body {
       animation: slide _duration(default);
+      border-bottom: _size(border) solid _color(theme-bg);
       height: auto;
+      padding-bottom: .5 * _size(padding);
       transform: translateY(0);
-      z-index: -10;
+      z-index: 5;
     }
   }
 }

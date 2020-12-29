@@ -60,14 +60,14 @@
   <template id="toolbar">
     <nav class="bar">
       <ul>
-        <li class="icon-button" v-on:click="openPanel('new')"><svg class="icon"><use href="images/icons.svg#file"></use></svg></li>
-        <li class="icon-button" v-on:click="undo"><svg class="icon"><use href="images/icons.svg#undo"></use></svg></li>
-        <li class="icon-button" v-on:click="redo"><svg class="icon"><use href="images/icons.svg#redo"></use></svg></li>
-        <li class="icon-button" v-on:click="remove"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
-        <li class="icon-button" v-on:click="openPanel('text')"><svg class="icon"><use href="images/icons.svg#font"></use></svg></li>
-        <li class="icon-button" v-on:click="openPanel('image')"><svg class="icon"><use href="images/icons.svg#image"></use></svg></li>
-        <li class="icon-button" v-on:click="openPanel('background')"><svg class="icon"><use href="images/icons.svg#palette"></use></svg></li>
-        <li class="icon-button" v-on:click="openPanel('icon')"><svg class="icon"><use href="images/icons.svg#icons"></use></svg></li>
+        <li class="icon-button" @click="openPanel('new')"><svg class="icon"><use href="images/icons.svg#file"></use></svg></li>
+        <li class="icon-button" @click="undo"><svg class="icon"><use href="images/icons.svg#undo"></use></svg></li>
+        <li class="icon-button" @click="redo"><svg class="icon"><use href="images/icons.svg#redo"></use></svg></li>
+        <li class="icon-button" @click="remove"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
+        <li class="icon-button" @click="openPanel('text')"><svg class="icon"><use href="images/icons.svg#font"></use></svg></li>
+        <li class="icon-button" @click="openPanel('image')"><svg class="icon"><use href="images/icons.svg#image"></use></svg></li>
+        <li class="icon-button" @click="openPanel('background')"><svg class="icon"><use href="images/icons.svg#palette"></use></svg></li>
+        <li class="icon-button" @click="openPanel('icon')"><svg class="icon"><use href="images/icons.svg#icons"></use></svg></li>
       </ul>
     </nav>
   </template>
@@ -75,9 +75,16 @@
   <template id="sidebar">
     <div class="accordion">
       <div class="panel">
-        <div class="header" v-on:click="openPanel('new')">New</div>
+        <div class="header" @click="openPanel('new')">New</div>
         <div class="body" v-if="panel === 'new'">
-          I currently have a Sparkpost javascript emailer file to send email responses from a localhost html file. I currently changed my send from email and now possibly need to change Crypt the APK. This is not something I know how to do. I am looking for someone to explain to me and show me how to change this so I can do it in the future. Thank you.
+          <select v-model="size">
+            <option value="800x536">Business Card</option>
+            <option value="618x800">Flyer</option>
+            <option value="566x800">A4</option>
+            <option value="800x800">Square</option>
+            <option value="820x312">Facebook Cover</option>
+          </select>
+          <button @click="newDrawing(size)">Create</button>
         </div>
       </div>
       <div class="panel">

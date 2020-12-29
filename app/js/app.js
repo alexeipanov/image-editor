@@ -20,10 +20,21 @@ window.addEventListener('load', () => {
   Vue.component('sidebar', {
     props: ['panel'],
     template: '#sidebar',
+    data: function() {
+      return { size: '800x800' };
+    },
     methods: {
       openPanel(panel) {
         this.$emit('update:panel', panel);
       },
+      newDrawing(size) {
+        let [width, height] = this.parseSize(size);
+        editor.canvas.clear();
+        editor.canvas.setDimensions({ width: width, height: height });
+      },
+      parseSize(size) {
+        return size.split('x');
+      }
     },
   });
 
@@ -31,8 +42,6 @@ window.addEventListener('load', () => {
     el: 'section.app',
     data: {
       panel: 'new',
-    },
-    methods: {
     }
   });
 
@@ -40,6 +49,6 @@ window.addEventListener('load', () => {
   let editor = new ImageEditor({
     id: 'editor',
     width: 800,
-    height: 450
+    height: 500
   });
 });
