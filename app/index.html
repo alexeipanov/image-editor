@@ -90,7 +90,49 @@
       <div class="panel">
         <div class="header" v-on:click="openPanel('text')">Text</div>
         <div class="body" v-if="panel === 'text'">
-          I currently have a Sparkpost javascript emailer file to send email responses from a localhost html file. I currently changed my send from email and now possibly need to change Crypt the APK. This is not something I know how to do. I am looking for someone to explain to me and show me how to change this so I can do it in the future. Thank you.
+          <div class="flex-column">
+            <div class="flex-row">
+              <textarea cols="40" rows="4"></textarea>
+            </div>
+            <div class="flex-row">
+              <div class="element-group">
+                <label for="font">Font</label>
+                <select id="font">
+                  <option value="Roboto">Roboto</option>
+                </select>
+              </div>
+              <div class="element-group">
+                <label for="size">Size</label>
+                <select id="font">
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12" selected>12</option>
+                  <option value="14">14</option>
+                  <option value="16">16</option>
+                  <option value="18">18</option>
+                  <option value="18">18</option>
+                  <option value="20">20</option>
+                  <option value="24">24</option>
+                  <option value="36">36</option>
+                  <option value="48">48</option>
+                  <option value="64">64</option>
+                  <option value="72">72</option>
+                </select>
+              </div>
+              <div class="element-group">
+                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#bold"></use></svg></div>
+                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#italic"></use></svg></div>
+              </div>
+              <div class="element-group">
+                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#align-left"></use></svg></div>
+                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#align-center"></use></svg></div>
+                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#align-right"></use></svg></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="panel">

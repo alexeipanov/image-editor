@@ -2,8 +2,35 @@ button {
   border: none;
   border-radius: _size(radius);
   background-color: rgba(_color(theme), .5);
+  box-sizing: content-box;
   color: _color(base-bg);
   cursor: pointer;
   height: 1.5 * _size(element);
-  padding: 0 _size(padding);
+  padding: 1px _size(padding);
 }
+
+label {
+
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+input {
+
+}
+
+select {
+
+}
+
+textarea {
+  border: _size(border) solid _color(border);
+  border-radius: _size(radius);
+  padding: 0 _size(padding);
+  width: 100%;
+}
+
