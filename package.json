@@ -1,24 +1,24 @@
 {
-  "name": "fabric_test_project",
+  "name": "fabric_editor_demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "babel-preset-env": "^1.7.0",
-    "broccoli": "^3.5.0",
-    "broccoli-babel-transpiler": "^7.8.0",
-    "broccoli-funnel": "^3.0.3",
-    "broccoli-imagemin": "^2.0.1",
-    "broccoli-livereload": "^1.6.1",
-    "broccoli-merge-trees": "^4.2.0",
-    "broccoli-optimize-js": "^1.0.3",
-    "broccoli-sass-source-maps": "^4.0.0",
-    "broccoli-svgstore": "^0.4.2",
-    "fabric": "^4.2.0",
-    "imagemin-svgo": "^8.0.0",
-    "sass": "^1.30.0"
+    "@fontsource/roboto": "^4.0.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "fabric": "^4.2.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "imagemin-svgo": "^8.0.0",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "source-map-support": "^0.5.19",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0"
+  },
   "scripts": {
     "test": ""
   },
