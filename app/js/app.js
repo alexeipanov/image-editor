@@ -1,4 +1,7 @@
-// import ImageEditor from './editor';
+import ImageEditor from './editor';
+import Vue from 'vue/dist/vue.js';
+import "../scss/app.scss";
+
 window.addEventListener('load', () => {
   Vue.component('toolbar', {
     data: function () {

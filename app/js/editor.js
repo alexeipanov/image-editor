@@ -1,5 +1,6 @@
 'use strict';
-
+import { fabric } from 'fabric';
+import HistoryManager from './history';
 
 const ZOOM_RATIO = 0.25;
 const GRID_COLOR = '#a6a6a6';
@@ -327,9 +328,6 @@ class ImageEditor {
       this.saveHistory();
     }
   }
-
 }
 
-class HistoryManager {
-
-}
+export default ImageEditor;
