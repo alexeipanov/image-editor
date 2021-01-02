@@ -1,5 +1,4 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
@@ -21,44 +20,85 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { targets: 'defaults' }]
+              ['@babel/preset-env', { targets: {
+                  'browsers': [
+                    'last 1 Chrome versions',
+                    'last 1 Firefox versions',
+                    'last 1 Safari versions'
+                  ]
+                }
+              }]
             ]
           }
         }
       },
       {
+        test: /\.(woff|woff2)$/i,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]',
+          }
+        }]
+      },
+      {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+        {
+          loader: MiniCssExtractPlugin.loader,
+          options: {
+            publicPath: '',
+          }
+        },
+        'css-loader'
+        ]
+      },
+      {
+        test: /\.(html)$/,
+        use: [
+        'file-loader?name=[name].[ext]',
+        'extract-loader',
+        {
+          loader: 'html-loader',
+          options: {
+            attributes: {
+              list: [
+                {
+                  tag: 'img',
+                  attribute: 'src',
+                  type: 'src'
+                }
+              ]
+            }
+          }
+        },
+
+
+        ]
+      },
+      {
+        test: /\.(png|jpe?g)$/i,
+        exclude: /node_modules/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: 'images/[name].[ext]',
+          }
+        }]
       },
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      inject: false,
-      hash: true,
-      template: './app/index.html',
-      filename: 'index.html'
-    }),
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),
-    new SVGSpritemapPlugin(
-      [
-        '**/file.svg',
-        '**/undo.svg',
-        '**/redo.svg',
-        '**/times.svg',
-        '**/font.svg',
-        '**/image.svg',
-        '**/palette.svg',
-        '**/icons.svg',
-        '**/bold.svg',
-        '**/italic.svg',
-        '**/align-left.svg',
-        '**/align-center.svg',
-        '**/align-right.svg'
-      ],
+    new SVGSpritemapPlugin('**/solid/?(file|undo|redo|times|font|image|palette|icons|bold|italic|align-left|align-center|align-right).svg',
       {
         sprite: {
           prefix: false,
