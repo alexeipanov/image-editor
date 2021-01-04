@@ -32,7 +32,7 @@
   </section>
 
   <footer class="x12">
-    <div class="copyright">&copy; 2018 <a href="mailto:windstarter@gmail.com">Alexei Panov</a></div>
+    <div class="copyright">&copy; 2021 <a href="mailto:windstarter@gmail.com">Alexei Panov</a></div>
     <div class="footer-menu">
       <nav>
         <ul>
@@ -73,14 +73,10 @@
       <div class="panel">
         <div class="header" @click="openPanel('new')">New</div>
         <div class="body" v-if="panel === 'new'">
-          <select v-model="size">
-            <option value="800x536">Business Card</option>
-            <option value="618x800">Flyer</option>
-            <option value="566x800">A4</option>
-            <option value="800x800">Square</option>
-            <option value="820x312">Facebook Cover</option>
+          <select v-model="selectedSize">
+            <option v-for="size in sizeList" :value="size.size">{{size.name}}</option>
           </select>
-          <button @click="newDrawing(size)">Create</button>
+          <button @click="newDrawing(selectedSize)">Create</button>
         </div>
       </div>
       <div class="panel">
@@ -100,22 +96,7 @@
               <div class="element-group">
                 <label for="size">Size</label>
                 <select id="font">
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12" selected>12</option>
-                  <option value="14">14</option>
-                  <option value="16">16</option>
-                  <option value="18">18</option>
-                  <option value="18">18</option>
-                  <option value="20">20</option>
-                  <option value="24">24</option>
-                  <option value="36">36</option>
-                  <option value="48">48</option>
-                  <option value="64">64</option>
-                  <option value="72">72</option>
+                  <option v-for="size in fontSizes" value="size" :selected="isSelected(size, fontSize)">{{size}}</option>
                 </select>
               </div>
               <div class="element-group">
@@ -136,10 +117,7 @@
         <div class="body" v-if="panel === 'image'">
           <div class="flex-row">
             <div class="image-list">
-              <img src="images/courtney-corlew-472715.jpg" class="active">
-              <img src="images/everaldo-coelho-486015.jpg">
-              <img src="images/willian-justen-de-vasconcellos-507620.jpg">
-              <img src="images/gleb-kozenko-262704.jpg">
+              <img v-for="image in imageList" :src="'images/' + image" :class="{ active: isSelected(image, selectedImage) }" @click="selectedImage = image">
             </div>
           </div>
           <div class="flex-row start">
@@ -154,14 +132,11 @@
         <div class="body" v-if="panel === 'background'">
           <div class="flex-row">
             <div class="image-list">
-              <img src="images/joe-woods-4Zaq5xY5M_c.jpg" class="active">
-              <img src="images/vincent-burkhead-LhlxYMfnTF0.jpg">
-              <img src="images/w-qjCHPZbeXCQ.jpg">
-              <img src="images/jj-ying-7JX0-bfiuxQ.jpg">
+              <img v-for="background in backgroundList" :src="'images/' + background" :class="{ active: isSelected(background, selectedBackground) }" @click="selectedBackground = background">
             </div>
           </div>
           <div class="flex-row">
-            <input @change="addImages" type="file" accept="image/*" ref="imageInput" multiple>
+            <input @change="addBackgrounds" type="file" accept="image/*" ref="imageInput" multiple>
             <button @click="uploadImages">Upload</button>
           </div>
           <div class="flex-row">
@@ -177,44 +152,8 @@
         <div class="body" v-if="panel === 'icon'">
           <div class="flex-row">
             <div class="icon-list">
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#behance"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#facebook"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#github"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#instagram"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#linkedin"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#pinterest"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#reddit"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#snapchat"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#soundcloud"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#strava"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#twitter"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#vimeo"></use></svg>
-              </div>
-              <div class="icon-cell">
-                <svg class="icon"><use href="images/icons.svg#youtube"></use></svg>
+              <div class="icon-cell" v-for="icon in iconList" :class="{ active: isSelected(icon, selectedIcon) }" @click="selectedIcon = icon">
+                <svg class="icon"><use :href="'images/icons.svg#' + icon"></use></svg>
               </div>
             </div>
           </div>
