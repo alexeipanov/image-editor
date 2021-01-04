@@ -255,11 +255,15 @@ nav {
   }
 }
 
-ul.image-list {
+.image-list,
+.icon-list {
   display: flex;
   justify-content: flex-start;
   gap: .5 * _size(element);
   flex-wrap: wrap;
+}
+
+.image-list {
 
   img {
     cursor: pointer;
@@ -269,7 +273,31 @@ ul.image-list {
     width: 100px;
     object-fit: cover;
     border: _size(border) solid _color(border);
+
+    &.active {
+      border: _size(border) solid _color(theme);
+    }
   }
+}
+
+.icon-list {
+  .icon-cell {
+    border: _size(border) solid _color(border);
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    padding: 3px;
+
+    &.active {
+      border: _size(border) solid _color(theme);
+    }
+  }
+}
+
+.color {
+  height: 50px;
+  width: 50px;
+  border: _size(border) solid _color(border);
 }
 
 @keyframes slide {

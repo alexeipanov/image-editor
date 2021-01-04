@@ -135,33 +135,91 @@
         <div class="header" v-on:click="openPanel('image')">Images</div>
         <div class="body" v-if="panel === 'image'">
           <div class="flex-row">
-            <ul class="image-list">
-              <img src="images/courtney-corlew-472715.jpg">
-              <img src="images/courtney-corlew-472715.jpg">
+            <div class="image-list">
+              <img src="images/courtney-corlew-472715.jpg" class="active">
               <img src="images/everaldo-coelho-486015.jpg">
-              <img src="images/everaldo-coelho-486015.jpg">
-              <img src="images/willian-justen-de-vasconcellos-507620.jpg">
               <img src="images/willian-justen-de-vasconcellos-507620.jpg">
               <img src="images/gleb-kozenko-262704.jpg">
-            </ul>
+            </div>
           </div>
-          <div>
+          <div class="flex-row start">
             <input @change="addImages" type="file" accept="image/*" ref="imageInput" multiple>
             <button @click="uploadImages">Upload</button>
             <button class="bright">Use</button>
           </div>
         </div>
       </div>
-      <div class="panel">
+      <div class="panel background">
         <div class="header" v-on:click="openPanel('background')">Background</div>
         <div class="body" v-if="panel === 'background'">
-        Looking for an experienced developer in both PHP and Node.js. Developer should "copy" the functionality of 'openssl_encrypt' encryption function from PHP to Node.js. Just for 'AES-256-CBC' algorithem. I have a code encrypting a string (utf8) in PHP and I should get the same functionality in Node. Current code in PHP is: openssl_encrypt("{​{​VALUE_TO_ENCRYPT}​}​", "AES-256-CBC", "{​{​KEY}​}​", 0, '{​{​IV}​}​') Value,Key and IV will be provided as utf8 encoded strings
+          <div class="flex-row">
+            <div class="image-list">
+              <img src="images/joe-woods-4Zaq5xY5M_c.jpg" class="active">
+              <img src="images/vincent-burkhead-LhlxYMfnTF0.jpg">
+              <img src="images/w-qjCHPZbeXCQ.jpg">
+              <img src="images/jj-ying-7JX0-bfiuxQ.jpg">
+            </div>
+          </div>
+          <div class="flex-row">
+            <input @change="addImages" type="file" accept="image/*" ref="imageInput" multiple>
+            <button @click="uploadImages">Upload</button>
+          </div>
+          <div class="flex-row">
+            <div class="color"></div>
+          </div>
+          <div class="flex-row">
+            <button class="bright">Use</button>
+          </div>
         </div>
       </div>
       <div class="panel">
         <div class="header" v-on:click="openPanel('icon')">Icons</div>
         <div class="body" v-if="panel === 'icon'">
-        Looking for an experienced mobile web designer. Only need designs, not HTML or CSS. We need to create a better experience of our current website for mobile users. This could be a project that goes on for a few months.
+          <div class="flex-row">
+            <div class="icon-list">
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#behance"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#facebook"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#github"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#instagram"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#linkedin"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#pinterest"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#reddit"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#snapchat"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#soundcloud"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#strava"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#twitter"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#vimeo"></use></svg>
+              </div>
+              <div class="icon-cell">
+                <svg class="icon"><use href="images/icons.svg#youtube"></use></svg>
+              </div>
+            </div>
+          </div>
+        <div class="flex-row start">
+          <button class="bright">Use</button>
         </div>
       </div>
     </div>

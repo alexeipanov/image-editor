@@ -2,6 +2,35 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
 
+const iconsList = [
+  'file',
+  'undo',
+  'redo',
+  'times',
+  'font',
+  'image',
+  'palette',
+  'icons',
+  'bold',
+  'italic',
+  'align-left',
+  'align-center',
+  'align-right',
+  'behance',
+  'facebook',
+  'github',
+  'instagram',
+  'linkedin',
+  'pinterest',
+  'reddit',
+  'snapchat',
+  'soundcloud',
+  'strava',
+  'twitter',
+  'vimeo',
+  'youtube'
+];
+
 module.exports = {
   entry: {
     app: './app/js/app.js',
@@ -107,7 +136,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'app.css',
     }),
-    new SVGSpritemapPlugin('**/solid/?(file|undo|redo|times|font|image|palette|icons|bold|italic|align-left|align-center|align-right).svg',
+    new SVGSpritemapPlugin(`**/?(solid|brands)/?(${iconsList.join('|')}).svg`,
       {
         sprite: {
           prefix: false,

@@ -2,10 +2,11 @@ button {
   border: none;
   border-radius: _size(radius);
   background-color: _color(theme);
-  box-sizing: content-box;
+  box-sizing: border-box;
   color: _color(base-bg);
   cursor: pointer;
   height: 1.5 * _size(element);
+  min-width: 100px;
   padding: 1px _size(padding);
   transition: background-color _duration(hover) ease;
 
