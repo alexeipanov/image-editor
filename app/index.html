@@ -131,10 +131,25 @@
           </div>
         </div>
       </div>
-      <div class="panel">
+      <div class="panel image">
         <div class="header" v-on:click="openPanel('image')">Images</div>
         <div class="body" v-if="panel === 'image'">
-        Looking for an experienced developer in both PHP and Node.js. Developer should "copy" the functionality of 'openssl_encrypt' encryption function from PHP to Node.js. Just for 'AES-256-CBC' algorithem. I have a code encrypting a string (utf8) in PHP and I should get the same functionality in Node. Current code in PHP is: openssl_encrypt("{​{​VALUE_TO_ENCRYPT}​}​", "AES-256-CBC", "{​{​KEY}​}​", 0, '{​{​IV}​}​') Value,Key and IV will be provided as utf8 encoded strings
+          <div class="flex-row">
+            <ul class="image-list">
+              <img src="images/courtney-corlew-472715.jpg">
+              <img src="images/courtney-corlew-472715.jpg">
+              <img src="images/everaldo-coelho-486015.jpg">
+              <img src="images/everaldo-coelho-486015.jpg">
+              <img src="images/willian-justen-de-vasconcellos-507620.jpg">
+              <img src="images/willian-justen-de-vasconcellos-507620.jpg">
+              <img src="images/gleb-kozenko-262704.jpg">
+            </ul>
+          </div>
+          <div>
+            <input @change="addImages" type="file" accept="image/*" ref="imageInput" multiple>
+            <button @click="uploadImages">Upload</button>
+            <button class="bright">Use</button>
+          </div>
         </div>
       </div>
       <div class="panel">

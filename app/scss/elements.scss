@@ -249,6 +249,27 @@ nav {
   &:last-child {
     margin-bottom: .25 * _size(margin);;
   }
+
+  &.start {
+    justify-content: flex-start;
+  }
+}
+
+ul.image-list {
+  display: flex;
+  justify-content: flex-start;
+  gap: .5 * _size(element);
+  flex-wrap: wrap;
+
+  img {
+    cursor: pointer;
+    flex-shrink: 0;
+    height: 100px;
+    overflow: hidden;
+    width: 100px;
+    object-fit: cover;
+    border: _size(border) solid _color(border);
+  }
 }
 
 @keyframes slide {

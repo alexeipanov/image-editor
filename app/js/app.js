@@ -40,7 +40,20 @@ window.addEventListener('load', () => {
       },
       parseSize(size) {
         return size.split('x');
-      }
+      },
+      addImages(panel) {
+        for (let file of event.target.files) {
+          if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            const imageList = this.$el.querySelector(`.panel.${this.panel} .image-list`);
+            imageList.appendChild(img);
+          }
+        }
+      },
+      uploadImages() {
+        this.$refs.imageInput.click();
+      },
     },
   });
 

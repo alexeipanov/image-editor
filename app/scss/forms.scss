@@ -1,12 +1,29 @@
 button {
   border: none;
   border-radius: _size(radius);
-  background-color: rgba(_color(theme), .5);
+  background-color: _color(theme);
   box-sizing: content-box;
   color: _color(base-bg);
   cursor: pointer;
   height: 1.5 * _size(element);
   padding: 1px _size(padding);
+  transition: background-color _duration(hover) ease;
+
+  &:active {
+    transform: translate(_size(border), _size(border));
+  }
+
+  &:hover {
+    background-color: darken(_color(theme), 10%);
+  }
+
+  &.bright {
+    background-color: _color(accent);
+
+    &:hover {
+      background-color: darken(_color(accent), 10%);
+    }
+  }
 }
 
 label {
@@ -34,3 +51,6 @@ textarea {
   width: 100%;
 }
 
+input[type="file"] {
+  display: none;
+}
