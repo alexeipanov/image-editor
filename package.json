@@ -26,13 +26,13 @@
     "svg-spritemap-webpack-plugin": "^3.8.2",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0",
-    "webpack-dev-server": "^3.11.1"
+    "webpack-dev-server": "^3.11.1",
+    "webpack-merge": "^5.7.3"
   },
   "scripts": {
     "test": "",
-    "serve": "webpack serve --open --mode=development",
-    "watch": "webpack --mode=development --watch",
-    "build": "webpack --mode=development"
+    "serve": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "author": "",
   "license": "ISC"

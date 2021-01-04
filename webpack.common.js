@@ -10,7 +10,6 @@ module.exports = {
     filename: 'app.js',
     path: __dirname + '/dist',
   },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -61,8 +60,18 @@ module.exports = {
       {
         test: /\.(html)$/,
         use: [
-        'file-loader?name=[name].[ext]',
-        'extract-loader',
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]'
+          }
+        },
+        {
+          loader: 'extract-loader',
+          options: {
+            publicPath: '',
+          }
+        },
         {
           loader: 'html-loader',
           options: {
