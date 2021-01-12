@@ -5,8 +5,9 @@ button {
   box-sizing: border-box;
   color: _color(base-bg);
   cursor: pointer;
+  font-family: inherit;
   height: 1.5 * _size(element);
-  min-width: 100px;
+  min-width: 102px;
   padding: 1px _size(padding);
   transition: background-color _duration(hover) ease;
 

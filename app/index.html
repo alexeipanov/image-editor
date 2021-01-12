@@ -59,7 +59,7 @@
         <li class="icon-button" @click="openPanel('new')"><svg class="icon"><use href="images/icons.svg#file"></use></svg></li>
         <li class="icon-button" @click="undo"><svg class="icon"><use href="images/icons.svg#undo"></use></svg></li>
         <li class="icon-button" @click="redo"><svg class="icon"><use href="images/icons.svg#redo"></use></svg></li>
-        <li class="icon-button" @click="remove"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
+        <li class="icon-button accent" @click="remove"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
         <li class="icon-button" @click="openPanel('text')"><svg class="icon"><use href="images/icons.svg#font"></use></svg></li>
         <li class="icon-button" @click="openPanel('image')"><svg class="icon"><use href="images/icons.svg#image"></use></svg></li>
         <li class="icon-button" @click="openPanel('background')"><svg class="icon"><use href="images/icons.svg#palette"></use></svg></li>
@@ -70,7 +70,7 @@
 
   <template id="sidebar">
     <div class="accordion">
-      <div class="panel">
+      <div class="panel" :class="{ active: isSelected(panel, 'new') }">
         <div class="header" @click="openPanel('new')">New</div>
         <div class="body" v-if="panel === 'new'">
           <select v-model="selectedSize">
@@ -79,7 +79,7 @@
           <button @click="newDrawing(selectedSize)">Create</button>
         </div>
       </div>
-      <div class="panel">
+      <div class="panel" :class="{ active: isSelected(panel, 'text') }">
         <div class="header" v-on:click="openPanel('text')">Text</div>
         <div class="body" v-if="panel === 'text'">
           <div class="flex-column">
@@ -112,7 +112,7 @@
           </div>
         </div>
       </div>
-      <div class="panel image">
+      <div class="panel image" :class="{ active: isSelected(panel, 'image') }">
         <div class="header" v-on:click="openPanel('image')">Images</div>
         <div class="body" v-if="panel === 'image'">
           <div class="flex-row">
@@ -127,7 +127,7 @@
           </div>
         </div>
       </div>
-      <div class="panel background">
+      <div class="panel background" :class="{ active: isSelected(panel, 'background') }">
         <div class="header" v-on:click="openPanel('background')">Background</div>
         <div class="body" v-if="panel === 'background'">
           <div class="flex-row">
@@ -147,7 +147,7 @@
           </div>
         </div>
       </div>
-      <div class="panel">
+      <div class="panel" :class="{ active: isSelected(panel, 'icon') }">
         <div class="header" v-on:click="openPanel('icon')">Icons</div>
         <div class="body" v-if="panel === 'icon'">
           <div class="flex-row">
