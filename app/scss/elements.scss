@@ -124,7 +124,6 @@ nav {
   }
 
   &.small {
-
     height: _size(element);
     width: _size(element);
     padding: _size(padding) * .25;
@@ -138,6 +137,11 @@ nav {
     &:hover {
       background-color: lighten(_color(accent), 15%);
     }
+  }
+
+  &.is-active {
+    background-color: _color(theme);
+    border: 2px solid lighten(_color(theme), 20%);
   }
 }
 

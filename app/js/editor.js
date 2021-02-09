@@ -1,6 +1,7 @@
 'use strict';
 import { fabric } from 'fabric';
 import HistoryManager from './history';
+import Utils from './utils';
 
 const ZOOM_RATIO = 0.25;
 const GRID_COLOR = '#a6a6a6';
@@ -59,7 +60,7 @@ class ImageEditor {
     });
 
     this.canvas.on('text:editing:entered', () => {
-      $(`#${this.config.id}`).trigger('onTextEditEnter');
+      // $(`#${this.config.id}`).trigger('onTextEditEnter');
     });
 
     this.canvas.on({
@@ -69,8 +70,8 @@ class ImageEditor {
     });
 
     this.canvas.on({
-      'object:selected': () => this.fireObjectSelection(),
-      'selection:updated': () => this.fireObjectSelection()
+      // 'object:selected': () => this.fireObjectSelection(),
+      // 'selection:updated': () => this.fireObjectSelection()
     });
 
   }
@@ -163,84 +164,51 @@ class ImageEditor {
     }, { crossOrigin: 'anonymous' });
   }
 
-  setDrawingMode(mode) {
-    this.canvas.isDrawingMode = mode;
-  }
+  // setDrawingMode(mode) {
+  //   this.canvas.isDrawingMode = mode;
+  // }
 
-  setMovingMode(mode) {
-    this.canvas.isDrawingMode = false;
-    this.canvas.defaultCursor = mode ? 'pointer' : 'default';
-    this.canvas.isMovingMode = mode;
-    $(`#${this.config.id}`).trigger('onMovingModeChange', { mode: mode });
-  }
+  // setMovingMode(mode) {
+  //   this.canvas.isDrawingMode = false;
+  //   this.canvas.defaultCursor = mode ? 'pointer' : 'default';
+  //   this.canvas.isMovingMode = mode;
+  //   $(`#${this.config.id}`).trigger('onMovingModeChange', { mode: mode });
+  // }
 
-  toggleMovingMode() {
-    this.canvas.isDrawingMode = false;
-    this.canvas.isMovingMode = !this.canvas.isMovingMode;
-    this.canvas.defaultCursor = this.canvas.isMovingMode ? 'pointer' : 'default';
-    $(`#${this.config.id}`).trigger('onMovingModeChange', { mode: this.canvas.isMovingMode });
-  }
+  // toggleMovingMode() {
+  //   this.canvas.isDrawingMode = false;
+  //   this.canvas.isMovingMode = !this.canvas.isMovingMode;
+  //   this.canvas.defaultCursor = this.canvas.isMovingMode ? 'pointer' : 'default';
+  //   $(`#${this.config.id}`).trigger('onMovingModeChange', { mode: this.canvas.isMovingMode });
+  // }
 
-  setPencil() {
-    this.canvas.freeDrawingBrush.shadow.blur = 0;
-    this.canvas.freeDrawingBrush.strokeLineCap = 'square';
-    this.canvas.freeDrawingBrush.strokeLineJoin = 'bevel';
-  }
+  // setPencil() {
+  //   this.canvas.freeDrawingBrush.shadow.blur = 0;
+  //   this.canvas.freeDrawingBrush.strokeLineCap = 'square';
+  //   this.canvas.freeDrawingBrush.strokeLineJoin = 'bevel';
+  // }
 
-  setBrush() {
-    this.canvas.freeDrawingBrush.shadow.blur = this.canvas.freeDrawingBrush.width / 2;
-    this.canvas.freeDrawingBrush.strokeLineCap = 'round';
-    this.canvas.freeDrawingBrush.strokeLineJoin = 'round';
-  }
-
-  setDrawingColor(color, opacity) {
-    let drawingColor = new fabric.Color(color);
-    drawingColor.setAlpha(opacity);
-    this.canvas.freeDrawingBrush.color = drawingColor.toRgba();
-    this.canvas.freeDrawingBrush.shadow.color = drawingColor.toRgba();
-    let activeObject = this.canvas.getActiveObject();
-    if (activeObject && activeObject.type === 'path') {
-      activeObject.set({ 'stroke': drawingColor.toRgba() });
-      activeObject.setShadow({ color: drawingColor.toRgba() });
-      this.canvas.renderAll();
-      this.saveHistory();
-    }
-  }
+  // setBrush() {
+  //   this.canvas.freeDrawingBrush.shadow.blur = this.canvas.freeDrawingBrush.width / 2;
+  //   this.canvas.freeDrawingBrush.strokeLineCap = 'round';
+  //   this.canvas.freeDrawingBrush.strokeLineJoin = 'round';
+  // }
 
   setTextColor(color) {
     this.textColor = new fabric.Color(color);
     this.textColor.setAlpha(this.config.opacity);
   }
 
-  setDrawingWidth(size) {
-    this.canvas.freeDrawingBrush.width = size;
-  }
+
 
   addText(text, options) {
-    let config = {
-      fill: this.textColor.toRgba(),
-      fontSize: 12,
-      fontFamily: 'Sans Serif',
-      fontWeight: 'normal',
-      fontStyle: 'normal',
-      textDecoration: 'none',
-      textAlign: 'left',
-      lockUniScaling: true,
-      scaleX: 2,
-      scaleY: 2,
-      lineHeight: 1.15
-    };
-
-    Object.getOwnPropertyNames(config).forEach(value => {
-      config[value] = options[value] || config[value];
-    });
-
-    let itext = new fabric.IText(text, config);
+    let itext = new fabric.IText(text, options);
     itext.set({ left: this.canvas.width / 2 - itext.width, top: this.canvas.height / 2 - itext.height });
     this.canvas.add(itext);
+    this.canvas.requestRenderAll();
     this.canvas.setActiveObject(itext);
-    this.canvas.renderAll();
-    this.saveHistory();
+    // this.canvas.renderAll();
+    // this.saveHistory();
   }
 
   getImagePromise(source) {

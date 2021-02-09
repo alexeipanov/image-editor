@@ -1,6 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SVGSpritemapPlugin = require('svg-spritemap-webpack-plugin');
+const fs = require('fs').promises;
 
 const iconsList = [
   'file',
@@ -30,6 +31,35 @@ const iconsList = [
   'vimeo',
   'youtube'
 ];
+
+let fontsMeta = [];
+fonts_dir = 'node_modules/@fontsource/';
+
+const fetchFontMeta = font => fs.readFile(`${fonts_dir}${font}/metadata.json`, 'utf8')
+  .then(json => {
+    let meta = JSON.parse(json);
+    return {
+      id: meta.fontId,
+      name: meta.fontName,
+      weights: meta.weights,
+      styles: meta.styles
+    }
+  });
+
+
+fs.readdir(fonts_dir)
+  .then(fonts => Promise.all(fonts.map(font => fetchFontMeta(font))))
+  .then(fonts => {
+    fs.writeFile('app/js/fonts.js', `export default ${JSON.stringify(fonts)}`, 'utf8');
+    fs.truncate('app/scss/fonts.scss');
+    fonts.forEach(font =>
+      font.weights.forEach(weight =>
+        font.styles.forEach(style =>
+          fs.appendFile('app/scss/fonts.scss', `@import "~@fontsource/${font.id}/latin-${weight}${style === 'italic' ? '-italic' : ''}.css";\n`, 'utf8')
+        )
+      )
+    );
+  });
 
 module.exports = {
   entry: {
@@ -71,7 +101,13 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [
+          { loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '',
+            }
+          },
+          'css-loader', 'sass-loader']
       },
       {
         test: /\.css$/,

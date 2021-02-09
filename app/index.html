@@ -80,40 +80,63 @@
         </div>
       </div>
       <div class="panel" :class="{ active: isSelected(panel, 'text') }">
-        <div class="header" v-on:click="openPanel('text')">Text</div>
+        <div class="header" @click="openPanel('text')">Text</div>
         <div class="body" v-if="panel === 'text'">
           <div class="flex-column">
             <div class="flex-row">
-              <textarea cols="40" rows="4"></textarea>
+              <textarea cols="40" rows="4" v-model="text"></textarea>
             </div>
             <div class="flex-row">
               <div class="element-group">
                 <label for="font">Font</label>
-                <select id="font">
-                  <option value="Roboto">Roboto</option>
+                <select id="font" v-model="selectedFont">
+                  <option v-for="font in fontList" :value=font>{{font.name}}</option>
                 </select>
               </div>
               <div class="element-group">
                 <label for="size">Size</label>
-                <select id="font">
-                  <option v-for="size in fontSizes" value="size" :selected="isSelected(size, fontSize)">{{size}}</option>
+                <select id="size" v-model="fontProperties.fontSize">
+                  <option v-for="size in fontSizes" :value=size :selected="isSelected(size, fontSize)">{{size}}</option>
                 </select>
               </div>
               <div class="element-group">
-                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#bold"></use></svg></div>
-                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#italic"></use></svg></div>
+                <button class="icon-button small" :disabled=!selectedFont.isRegular() :class="{ 'is-active': fontProperties.fontStyle === 'normal' }" @click="fontProperties.fontStyle = 'normal'">
+                  <svg class="icon"><use href="images/icons.svg#font"></use></svg>
+                </button>
+                <button class="icon-button small" :disabled=!selectedFont.isItalic() :class="{ 'is-active': fontProperties.fontStyle === 'italic' }" @click="fontProperties.fontStyle = 'italic'">
+                  <svg class="icon"><use href="images/icons.svg#italic"></use></svg>
+                </button>
               </div>
               <div class="element-group">
-                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#align-left"></use></svg></div>
-                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#align-center"></use></svg></div>
-                <div class="icon-button small"><svg class="icon"><use href="images/icons.svg#align-right"></use></svg></div>
+                <button class="icon-button small" :class="{ 'is-active': fontProperties.textAlign === 'left' }" @click="fontProperties.textAlign = 'left'">
+                  <svg class="icon"><use href="images/icons.svg#align-left"></use></svg>
+                </button>
+                <button class="icon-button small" :class="{ 'is-active': fontProperties.textAlign === 'center' }" @click="fontProperties.textAlign = 'center'">
+                  <svg class="icon"><use href="images/icons.svg#align-center"></use></svg>
+                </button>
+                <button class="icon-button small" :class="{ 'is-active': fontProperties.textAlign === 'right' }" @click="fontProperties.textAlign = 'right'">
+                  <svg class="icon"><use href="images/icons.svg#align-right"></use></svg>
+                </button>
+              </div>
+            </div>
+            <div class="flex-row">
+              <div class="element-group">
+                <label for="weight">Weight</label>
+                <select id="weight" v-model="fontProperties.fontWeight">
+                  <option v-for="weight in selectedFont.weights" :value=weight :selected="isSelected(weight, fontProperties.fontWeight)">{{weight}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-row">
+              <div class="element-group">
+                <button @click="addText()">Add</button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="panel image" :class="{ active: isSelected(panel, 'image') }">
-        <div class="header" v-on:click="openPanel('image')">Images</div>
+        <div class="header" @click="openPanel('image')">Images</div>
         <div class="body" v-if="panel === 'image'">
           <div class="flex-row">
             <div class="image-list">
@@ -128,7 +151,7 @@
         </div>
       </div>
       <div class="panel background" :class="{ active: isSelected(panel, 'background') }">
-        <div class="header" v-on:click="openPanel('background')">Background</div>
+        <div class="header" @click="openPanel('background')">Background</div>
         <div class="body" v-if="panel === 'background'">
           <div class="flex-row">
             <div class="image-list">
@@ -148,7 +171,7 @@
         </div>
       </div>
       <div class="panel" :class="{ active: isSelected(panel, 'icon') }">
-        <div class="header" v-on:click="openPanel('icon')">Icons</div>
+        <div class="header" @click="openPanel('icon')">Icons</div>
         <div class="body" v-if="panel === 'icon'">
           <div class="flex-row">
             <div class="icon-list">
@@ -163,5 +186,6 @@
       </div>
     </div>
   </template>
+
 </body>
 </html>

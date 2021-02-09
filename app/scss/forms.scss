@@ -2,7 +2,7 @@ button {
   border: none;
   border-radius: _size(radius);
   background-color: _color(theme);
-  box-sizing: border-box;
+  box-sizing: content-box;
   color: _color(base-bg);
   cursor: pointer;
   font-family: inherit;
@@ -11,7 +11,7 @@ button {
   padding: 1px _size(padding);
   transition: background-color _duration(hover) ease;
 
-  &:active {
+  &:active:not([disabled]) {
     transform: translate(_size(border), _size(border));
   }
 
@@ -25,6 +25,25 @@ button {
     &:hover {
       background-color: darken(_color(accent), 10%);
     }
+  }
+
+  &.icon-button {
+    border-radius: unset;
+    min-width: unset;
+  }
+
+  &:disabled {
+    background-color: _color(inactive-bg);
+    border: 2px solid lighten(_color(inactive-bg), 10%);
+    cursor: default;
+
+    &:hover {
+      background-color: _color(inactive-bg);
+    }
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 
@@ -49,7 +68,10 @@ select {
 textarea {
   border: _size(border) solid _color(border);
   border-radius: _size(radius);
-  padding: 0 _size(padding);
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  padding: 0 .5 * _size(padding);
   width: 100%;
 }
 
