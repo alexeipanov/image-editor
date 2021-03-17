@@ -101,6 +101,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         use: [
           { loader: MiniCssExtractPlugin.loader,
             options: {
@@ -124,6 +125,7 @@ module.exports = {
       },
       {
         test: /\.(html)$/,
+        exclude: /node_modules/,
         use: [
         {
           loader: 'file-loader',
