@@ -1,5 +1,6 @@
-import fonts from './fonts.js';
-import { FontList } from './fontList.js'
+import fonts from './fonts';
+import { FontList } from './fontList'
+import Store from './store';
 import ImageEditor from './editor';
 import Vue from 'vue/dist/vue.js';
 import VueHead from 'vue-head';
@@ -15,13 +16,17 @@ import bg3 from '../images/w-qjCHPZbeXCQ.jpg';
 import bg4 from '../images/jj-ying-7JX0-bfiuxQ.jpg';
 import FontFaceObserver from 'fontfaceobserver';
 
+import PropertiesManager from './propertiesManager';
+
+let propertiesManager = new PropertiesManager();
+
 window.addEventListener('load', () => {
   Vue.use(VueHead);
-
   let fontList = new FontList(fonts);
   Promise.all(fontList.files().map(file => new FontFaceObserver(file.name, { style: file.style, weight: file.weight }).load()))
     .then(() => {
 
+      let store =  new Store({ fonts: fontList.fonts });
       Vue.component('toolbar', {
         data: function () {
           return {
@@ -52,23 +57,6 @@ window.addEventListener('load', () => {
               { size: '800x800', name: 'Square' },
               { size: '820x312', name: 'Facebook Cover' },
             ],
-            fontSize: 12,
-            fontSizes: [7, 8, 9 ,10, 11, 12, 14, 16, 18, 20, 24, 36, 48, 64, 72],
-            fontList: fontList.fonts,
-            selectedFont: fontList.fonts[0],
-            fontProperties: {
-              fontFamily: null,
-              fontStyle: 'normal',
-              fontSize: 10,
-              // fill: currentColor,
-              fontWeight: 400,
-              textDecoration: 'none',
-              textAlign: 'left',
-              lockUniScaling: true,
-              scaleX: 1,
-              scaleY: 1,
-              // lineHeight: 1.15
-            },
             selectedImage: null,
             imageList: [
               'courtney-corlew-472715.jpg',
@@ -99,17 +87,21 @@ window.addEventListener('load', () => {
               'vimeo',
               'youtube'
             ],
-            text: '',
             textColor: '#000000',
+            store: store,
+            font: store.fonts[0]
           };
         },
         watch: {
-          selectedFont() {
-            this.fontProperties.fontFamily = this.selectedFont.name;
+          'store.TextProperties': {
+            handler: function () {
+              editor.updateObject(this.store.TextProperties);
+            },
+            deep: true
+          },
+          'store.TextProperties.fontFamily': function() {
+            this.font = this.store.fonts.find(font => font.name === this.store.TextProperties.fontFamily) || this.store.fonts[0];
           }
-        },
-        created() {
-            this.fontProperties.fontFamily = this.selectedFont.name;
         },
         methods: {
           openPanel(panel) {
@@ -146,12 +138,12 @@ window.addEventListener('load', () => {
             return item === value;
           },
           addText() {
-            editor.addText(this.text, this.fontProperties);
-          }
+            editor.addText(this.store.TextProperties.text, this.store.TextProperties);
+          },
         },
       });
 
-      let app = new Vue({
+      new Vue({
         el: 'section.app',
         data: {
           panel: 'new',
@@ -162,10 +154,12 @@ window.addEventListener('load', () => {
         }
       });
 
+
       let editor = new ImageEditor({
         id: 'editor',
         width: 800,
-        height: 500
+        height: 500,
+        store: store
       });
 
     });

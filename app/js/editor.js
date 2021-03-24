@@ -1,6 +1,7 @@
 'use strict';
 import { fabric } from 'fabric';
 import HistoryManager from './history';
+import PropertiesManager from './propertiesManager';
 import Utils from './utils';
 
 const ZOOM_RATIO = 0.25;
@@ -22,69 +23,73 @@ class ImageEditor {
     this.state = [];
     this.historyPos = 0;
     this.saveHistory();
+    this.store = options.store;
+    this.propertiesManager = new PropertiesManager();
 
-    this.canvas.on('mouse:down', function(options) {
-      if (this.isMovingMode === true) {
-        this.isDragging = true;
-        this.selection = false;
-        this.lastPosX = options.e.clientX;
-        this.lastPosY = options.e.clientY;
-      }
-    });
+    // this.canvas.on('mouse:down', function(options) {
+    //   if (this.isMovingMode === true) {
+    //     this.isDragging = true;
+    //     this.selection = false;
+    //     this.lastPosX = options.e.clientX;
+    //     this.lastPosY = options.e.clientY;
+    //   }
+    // });
 
-    this.canvas.on('mouse:move', function(options) {
-      if (this.isDragging) {
-        let dx = this.lastPosX - options.e.clientX;
-        let dy = this.lastPosY - options.e.clientY;
-        if (dx > -1 * this.vptCoords.tl.x && dx < this.width - this.vptCoords.br.x) {
-          this.viewportTransform[4] -= dx;
-        }
-        if (dy > -1 * this.vptCoords.tl.y && dy < this.height - this.vptCoords.br.y) {
-          this.viewportTransform[5] -= dy;
-        }
-        this.requestRenderAll();
-        this.lastPosX = options.e.clientX;
-        this.lastPosY = options.e.clientY;
-      }
-    });
+    // this.canvas.on('mouse:move', function(options) {
+    //   if (this.isDragging) {
+    //     let dx = this.lastPosX - options.e.clientX;
+    //     let dy = this.lastPosY - options.e.clientY;
+    //     if (dx > -1 * this.vptCoords.tl.x && dx < this.width - this.vptCoords.br.x) {
+    //       this.viewportTransform[4] -= dx;
+    //     }
+    //     if (dy > -1 * this.vptCoords.tl.y && dy < this.height - this.vptCoords.br.y) {
+    //       this.viewportTransform[5] -= dy;
+    //     }
+    //     this.requestRenderAll();
+    //     this.lastPosX = options.e.clientX;
+    //     this.lastPosY = options.e.clientY;
+    //   }
+    // });
 
-    this.canvas.on('mouse:up', function(options) {
-      this.isDragging = false;
-      this.selection = true;
-    });
+    // this.canvas.on('mouse:up', function(options) {
+    //   this.isDragging = false;
+    //   this.selection = true;
+    // });
 
-    this.canvas.on('drop', (options) => {
-      options.e.preventDefault();
-      this.addSign(options.e.dataTransfer.getData('source'))
-      .then((result) => this.drawSign(result, options.e.layerX, options.e.layerY));
-    });
+    // this.canvas.on('drop', (options) => {
+    //   options.e.preventDefault();
+    //   this.addSign(options.e.dataTransfer.getData('source'))
+    //   .then((result) => this.drawSign(result, options.e.layerX, options.e.layerY));
+    // });
 
-    this.canvas.on('text:editing:entered', () => {
-      // $(`#${this.config.id}`).trigger('onTextEditEnter');
-    });
+    // this.canvas.on('text:editing:entered', () => {
+    //   // $(`#${this.config.id}`).trigger('onTextEditEnter');
+    // });
+
+    // this.canvas.on({
+    //   'object:modified': () => this.saveHistory(),
+    //   'object:removed': () => this.saveHistory(),
+    //   'path:created':  () => this.saveHistory()
+    // });
 
     this.canvas.on({
-      'object:modified': () => this.saveHistory(),
-      'object:removed': () => this.saveHistory(),
-      'path:created':  () => this.saveHistory()
-    });
-
-    this.canvas.on({
-      // 'object:selected': () => this.fireObjectSelection(),
-      // 'selection:updated': () => this.fireObjectSelection()
+      'selection:updated': () => this.fireObjectSelection(),
+      'selection:created': () => this.fireObjectSelection(),
+      'before:selection:cleared': () => this.fireClearSelection()
     });
 
   }
 
   fireObjectSelection() {
     let activeObject = this.canvas.getActiveObject();
-    if (activeObject.type === 'i-text') {
-      $(`#${this.config.id}`).trigger('onSelectText', { scale: activeObject.scaleX });
-    }
-    if (activeObject.type === 'path') {
-      let color = new fabric.Color(activeObject.stroke);
-      $(`#${this.config.id}`).trigger('onSelectPath', { opacity: color.getAlpha() });
-    }
+    let properties = this.propertiesManager.create(activeObject.type, activeObject);
+    this.store.setProperties(properties.type(), properties);
+  }
+
+  fireClearSelection() {
+    let activeObject = this.canvas.getActiveObject();
+    let properties = this.propertiesManager.create(activeObject.type, this.propertiesManager.defaults(activeObject.type, this.store));
+    this.store.setProperties(properties.type(), properties);
   }
 
   setSnap(snap) {
@@ -287,13 +292,12 @@ class ImageEditor {
     $(`#${this.config.id}`).trigger('onBackgroundChange', { width: this.config.width, height: this.config.height });
   }
 
-  updateObject(params) {
+  updateObject(options) {
     let activeObject = this.canvas.getActiveObject();
-    if (activeObject && activeObject.type === 'i-text') {
-      activeObject.scaleX = params.scale;
-      activeObject.scaleY = params.scale;
+    if (activeObject) {
+      Object.assign(activeObject, options);
       this.canvas.renderAll();
-      this.saveHistory();
+      // this.saveHistory();
     }
   }
 }
