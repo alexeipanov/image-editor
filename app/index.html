@@ -56,14 +56,30 @@
   <template id="toolbar">
     <nav class="bar">
       <ul>
-        <li class="icon-button" @click="openPanel('new')"><svg class="icon"><use href="images/icons.svg#file"></use></svg></li>
-        <li class="icon-button" @click="undo"><svg class="icon"><use href="images/icons.svg#undo"></use></svg></li>
-        <li class="icon-button" @click="redo"><svg class="icon"><use href="images/icons.svg#redo"></use></svg></li>
-        <li class="icon-button accent" @click="remove"><svg class="icon"><use href="images/icons.svg#times"></use></svg></li>
-        <li class="icon-button" @click="openPanel('text')"><svg class="icon"><use href="images/icons.svg#font"></use></svg></li>
-        <li class="icon-button" @click="openPanel('image')"><svg class="icon"><use href="images/icons.svg#image"></use></svg></li>
-        <li class="icon-button" @click="openPanel('background')"><svg class="icon"><use href="images/icons.svg#palette"></use></svg></li>
-        <li class="icon-button" @click="openPanel('icon')"><svg class="icon"><use href="images/icons.svg#icons"></use></svg></li>
+        <button class="icon-button" @click="openPanel('new')">
+          <svg class="icon"><use href="images/icons.svg#file"></use></svg>
+        </button>
+        <button class="icon-button" @click="undo()">
+          <svg class="icon"><use href="images/icons.svg#undo"></use></svg>
+        </button>
+        <button class="icon-button" @click="redo()">
+          <svg class="icon"><use href="images/icons.svg#redo"></use></svg>
+        </button>
+        <button class="icon-button accent" :disabled=!store.selection @click="remove()">
+          <svg class="icon"><use href="images/icons.svg#times"></use></svg>
+        </button>
+        <button class="icon-button" @click="openPanel('text')">
+          <svg class="icon"><use href="images/icons.svg#font"></use></svg>
+        </button>
+        <button class="icon-button" @click="openPanel('image')">
+          <svg class="icon"><use href="images/icons.svg#image"></use></svg>
+        </button>
+        <button class="icon-button" @click="openPanel('background')">
+          <svg class="icon"><use href="images/icons.svg#palette"></use></svg>
+        </button>
+        <button class="icon-button" @click="openPanel('icon')">
+          <svg class="icon"><use href="images/icons.svg#icons"></use></svg>
+        </button>
       </ul>
     </nav>
   </template>

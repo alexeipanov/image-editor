@@ -4,6 +4,7 @@ let propertiesManager = new PropertiesManager();
 
 export default class Store {
   constructor(options = {}) {
+    this.selection = false;
     this.fonts = options.fonts;
     this.sizes = [7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 36, 48, 64, 72];
     this.TextProperties = {};

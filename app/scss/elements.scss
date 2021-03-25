@@ -137,6 +137,12 @@ nav {
     &:hover {
       background-color: lighten(_color(accent), 15%);
     }
+
+    &:disabled {
+      background-color: _color(inactive-bg);
+      border: 2px solid lighten(_color(inactive-bg), 10%);
+      cursor: default;
+    }
   }
 
   &.is-active {

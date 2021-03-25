@@ -82,12 +82,14 @@ class ImageEditor {
 
   fireObjectSelection() {
     let activeObject = this.canvas.getActiveObject();
+    this.store.selection = true;
     let properties = this.propertiesManager.create(activeObject.type, activeObject);
     this.store.setProperties(properties.type(), properties);
   }
 
   fireClearSelection() {
     let activeObject = this.canvas.getActiveObject();
+    this.store.selection = false;
     let properties = this.propertiesManager.create(activeObject.type, this.propertiesManager.defaults(activeObject.type, this.store));
     this.store.setProperties(properties.type(), properties);
   }
@@ -214,6 +216,17 @@ class ImageEditor {
     this.canvas.setActiveObject(itext);
     // this.canvas.renderAll();
     // this.saveHistory();
+  }
+
+  removeObject() {
+    let activeObject = this.canvas.getActiveObject();
+    if (activeObject) {
+      this.canvas.remove(activeObject);
+    }
+  }
+
+  hasSelection() {
+    return this.canvas.getActiveObject() !== null;
   }
 
   getImagePromise(source) {

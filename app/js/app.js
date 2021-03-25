@@ -28,20 +28,22 @@ window.addEventListener('load', () => {
 
       let store =  new Store({ fonts: fontList.fonts });
       Vue.component('toolbar', {
-        data: function () {
+        template: '#toolbar',
+        data: function() {
           return {
-
-          }
+            store: store
+          };
         },
         methods: {
           openPanel(panel) {
             this.$emit('update:panel', panel);
           },
-          remove() {},
+          remove() {
+            editor.removeObject();
+          },
           undo() {},
           redo() {},
         },
-        template: '#toolbar'
       });
 
       Vue.component('sidebar', {
@@ -94,7 +96,7 @@ window.addEventListener('load', () => {
         },
         watch: {
           'store.TextProperties': {
-            handler: function () {
+            handler: function() {
               editor.updateObject(this.store.TextProperties);
             },
             deep: true
@@ -151,9 +153,8 @@ window.addEventListener('load', () => {
         },
         head: {
           link: fontList.files().map(file => new Object({ rel: 'preload', href: `fonts/${file.filename()}`, as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }))
-        }
+        },
       });
-
 
       let editor = new ImageEditor({
         id: 'editor',
