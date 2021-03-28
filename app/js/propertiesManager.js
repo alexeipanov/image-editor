@@ -32,7 +32,24 @@ class TextProperties {
 }
 
 class ImageProperties {
+  constructor(options) {
+    this.item = options.item || null;
+  }
 
+  type() {
+    return 'ImageProperties';
+  }
+
+  static defaults(settings) {
+    return {
+    }
+  }
+
+  draw() {
+    return function() {
+      this.addImage();
+    }
+  }
 }
 
 class BackgroundProperties {
@@ -44,7 +61,18 @@ class IconProperties {
 }
 
 class SettingProperties {
+  constructor(options) {
+    this.padding = options.padding || 10;
+  }
 
+  type() {
+    return 'ImageProperties';
+  }
+
+  static defaults(settings) {
+    return {
+    }
+  }
 }
 
 const properties = { SizeProperties, TextProperties, ImageProperties, BackgroundProperties, IconProperties, SettingProperties };
@@ -54,7 +82,8 @@ const typeProxyHandler = {
     switch (prop === 'type' && target.type) {
       case 'i-text':
       return 'TextProperties';
-      break;
+      case 'image':
+      return 'ImageProperties';
     }
     return Reflect.get(...arguments);
   },

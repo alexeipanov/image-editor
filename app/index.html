@@ -117,21 +117,43 @@
                 </select>
               </div>
               <div class="element-group">
-                <button class="icon-button small" :disabled=!font.isRegular() :class="{ 'is-active': store.TextProperties.fontStyle === 'normal' }" @click="store.TextProperties.fontStyle = 'normal'">
+                <button
+                  class="icon-button small"
+                  :disabled=!font.isRegular()
+                  :class="{ 'is-active': store.TextProperties.fontStyle === 'normal' }"
+                  @click="store.TextProperties.fontStyle = 'normal'"
+                >
                   <svg class="icon"><use href="images/icons.svg#font"></use></svg>
                 </button>
-                <button class="icon-button small" :disabled=!font.isItalic() :class="{ 'is-active': store.TextProperties.fontStyle === 'italic' }" @click="store.TextProperties.fontStyle = 'italic'">
+                <button
+                  class="icon-button small"
+                  :disabled=!font.isItalic()
+                  :class="{ 'is-active': store.TextProperties.fontStyle === 'italic' }"
+                  @click="store.TextProperties.fontStyle = 'italic'"
+                >
                   <svg class="icon"><use href="images/icons.svg#italic"></use></svg>
                 </button>
               </div>
               <div class="element-group">
-                <button class="icon-button small" :class="{ 'is-active': store.TextProperties.textAlign === 'left' }" @click="store.TextProperties.textAlign = 'left'">
+                <button
+                  class="icon-button small"
+                  :class="{ 'is-active': store.TextProperties.textAlign === 'left' }"
+                  @click="store.TextProperties.textAlign = 'left'"
+                >
                   <svg class="icon"><use href="images/icons.svg#align-left"></use></svg>
                 </button>
-                <button class="icon-button small" :class="{ 'is-active': store.TextProperties.textAlign === 'center' }" @click="store.TextProperties.textAlign = 'center'">
+                <button
+                  class="icon-button small"
+                  :class="{ 'is-active': store.TextProperties.textAlign === 'center' }"
+                  @click="store.TextProperties.textAlign = 'center'"
+                >
                   <svg class="icon"><use href="images/icons.svg#align-center"></use></svg>
                 </button>
-                <button class="icon-button small" :class="{ 'is-active': store.TextProperties.textAlign === 'right' }" @click="store.TextProperties.textAlign = 'right'">
+                <button
+                  class="icon-button small"
+                  :class="{ 'is-active': store.TextProperties.textAlign === 'right' }"
+                  @click="store.TextProperties.textAlign = 'right'"
+                >
                   <svg class="icon"><use href="images/icons.svg#align-right"></use></svg>
                 </button>
               </div>
@@ -158,13 +180,20 @@
         <div class="body" v-if="panel === 'image'">
           <div class="flex-row">
             <div class="image-list">
-              <img v-for="image in imageList" :src="'images/' + image" :class="{ active: isSelected(image, selectedImage) }" @click="selectedImage = image">
+              <img
+                v-for="image in store.images"
+                :src="image"
+                :class="{ active: isSelected(image, store.ImageProperties.item) }"
+                draggable="true"
+                @click="store.ImageProperties.item = image"
+                @dragstart="startDrag($event, image, 'image')"
+              >
             </div>
           </div>
           <div class="flex-row start">
             <input @change="addImages" type="file" accept="image/*" ref="imageInput" multiple>
             <button @click="uploadImages">Upload</button>
-            <button class="bright">Use</button>
+            <button class="bright" @click="addImage()" :disabled="!store.ImageProperties.item">Use</button>
           </div>
         </div>
       </div>
@@ -174,7 +203,12 @@
         <div class="body" v-if="panel === 'background'">
           <div class="flex-row">
             <div class="image-list">
-              <img v-for="background in backgroundList" :src="'images/' + background" :class="{ active: isSelected(background, selectedBackground) }" @click="selectedBackground = background">
+              <img
+                v-for="background in backgroundList"
+                :src="'images/' + background"
+                :class="{ active: isSelected(background, selectedBackground) }"
+                @click="selectedBackground = background"
+              >
             </div>
           </div>
           <div class="flex-row">

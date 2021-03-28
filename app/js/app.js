@@ -18,15 +18,13 @@ import FontFaceObserver from 'fontfaceobserver';
 
 import PropertiesManager from './propertiesManager';
 
-let propertiesManager = new PropertiesManager();
-
 window.addEventListener('load', () => {
   Vue.use(VueHead);
   let fontList = new FontList(fonts);
   Promise.all(fontList.files().map(file => new FontFaceObserver(file.name, { style: file.style, weight: file.weight }).load()))
     .then(() => {
 
-      let store =  new Store({ fonts: fontList.fonts });
+      let store =  new Store({ fonts: fontList.fonts, images: [image1, image2, image3, image4] });
       Vue.component('toolbar', {
         template: '#toolbar',
         data: function() {
@@ -58,13 +56,6 @@ window.addEventListener('load', () => {
               { size: '566x800', name: 'A4' },
               { size: '800x800', name: 'Square' },
               { size: '820x312', name: 'Facebook Cover' },
-            ],
-            selectedImage: null,
-            imageList: [
-              'courtney-corlew-472715.jpg',
-              'everaldo-coelho-486015.jpg',
-              'willian-justen-de-vasconcellos-507620.jpg',
-              'gleb-kozenko-262704.jpg'
             ],
             selectedBackground: null,
             backgroundList: [
@@ -121,7 +112,7 @@ window.addEventListener('load', () => {
             for (let file of event.target.files) {
               if (file.type.startsWith('image/')) {
                 let url = URL.createObjectURL(file);
-                this.imageList.push(file.name)
+                this.store.images.push(url);
               }
             }
           },
@@ -140,8 +131,16 @@ window.addEventListener('load', () => {
             return item === value;
           },
           addText() {
-            editor.addText(this.store.TextProperties.text, this.store.TextProperties);
+            editor.addText();
           },
+          addImage() {
+            editor.addImage();
+          },
+          startDrag(event, item, type) {
+            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.setData('item', item);
+            event.dataTransfer.setData('type', type);
+          }
         },
       });
 

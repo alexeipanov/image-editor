@@ -6,8 +6,11 @@ export default class Store {
   constructor(options = {}) {
     this.selection = false;
     this.fonts = options.fonts;
+    this.images = options.images;
     this.sizes = [7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 36, 48, 64, 72];
     this.TextProperties = {};
+    this.ImageProperties = {};
+    this.SettingProperties = {};
     let textProperties = {
       fill: '#000',
       fontSize: 12,
@@ -22,8 +25,20 @@ export default class Store {
       scaleY: 1,
       text: ''
     };
+    let imageProperties = {
+      item: null,
+      scaleX: 1,
+      scaleY: 1
+    };
+    let settingProperties = {
+      padding: 10
+    }
     let TextProperties = propertiesManager.create('TextProperties', textProperties);
     this.setProperties('TextProperties', TextProperties);
+    let ImageProperties = propertiesManager.create('ImageProperties', imageProperties);
+    this.setProperties('ImageProperties', ImageProperties);
+    let SettingProperties = propertiesManager.create('SettingProperties', settingProperties);
+    this.setProperties('SettingProperties', SettingProperties);
   }
 
   setProperties(type, properties) {

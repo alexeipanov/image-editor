@@ -56,11 +56,15 @@ class ImageEditor {
     //   this.selection = true;
     // });
 
-    // this.canvas.on('drop', (options) => {
-    //   options.e.preventDefault();
-    //   this.addSign(options.e.dataTransfer.getData('source'))
-    //   .then((result) => this.drawSign(result, options.e.layerX, options.e.layerY));
-    // });
+    this.canvas.on('drop', (options) => {
+      options.e.preventDefault();
+      let item = options.e.dataTransfer.getData('item');
+      let type = options.e.dataTransfer.getData('type');
+      let properties = this.propertiesManager.create(type, { item: item });
+      this.store.setProperties(properties.type(), properties);
+      this.drawHandler = properties.draw();
+      this.drawHandler();
+    });
 
     // this.canvas.on('text:editing:entered', () => {
     //   // $(`#${this.config.id}`).trigger('onTextEditEnter');
@@ -208,14 +212,36 @@ class ImageEditor {
 
 
 
-  addText(text, options) {
-    let itext = new fabric.IText(text, options);
+  addText() {
+    let itext = new fabric.IText(this.store.TextProperties.text, this.store.TextProperties);
     itext.set({ left: this.canvas.width / 2 - itext.width, top: this.canvas.height / 2 - itext.height });
     this.canvas.add(itext);
     this.canvas.requestRenderAll();
     this.canvas.setActiveObject(itext);
     // this.canvas.renderAll();
     // this.saveHistory();
+  }
+
+  addImage() {
+    fabric.Image.fromURL(this.store.ImageProperties.item, image => {
+      let scaleFactorX = 1;
+      let scaleFactorY = 1;
+      if (image.height >= this.canvas.height) {
+        scaleFactorY = (this.canvas.height - this.store.SettingProperties.padding * 2) / image.height;
+      }
+      if (image.width >= this.canvas.width) {
+        scaleFactorX = (this.canvas.width - this.store.SettingProperties.padding * 2) / image.width;
+      }
+      let scaleFactor = Math.min(scaleFactorX, scaleFactorY);
+      image.set({
+        top: this.store.SettingProperties.padding,
+        left: this.store.SettingProperties.padding,
+        scaleY: scaleFactor,
+        scaleX: scaleFactor
+      });
+      this.canvas.add(image);
+      this.canvas.setActiveObject(image);
+    });
   }
 
   removeObject() {

@@ -123,6 +123,12 @@ nav {
     background-color: lighten(_color(theme), 15%);
   }
 
+  &:disabled {
+    background-color: _color(inactive-bg);
+    border: 2px solid lighten(_color(inactive-bg), 10%);
+    cursor: default;
+  }
+
   &.small {
     height: _size(element);
     width: _size(element);
@@ -141,7 +147,6 @@ nav {
     &:disabled {
       background-color: _color(inactive-bg);
       border: 2px solid lighten(_color(inactive-bg), 10%);
-      cursor: default;
     }
   }
 
