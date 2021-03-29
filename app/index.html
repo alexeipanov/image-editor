@@ -204,10 +204,11 @@
           <div class="flex-row">
             <div class="image-list">
               <img
-                v-for="background in backgroundList"
-                :src="'images/' + background"
-                :class="{ active: isSelected(background, selectedBackground) }"
-                @click="selectedBackground = background"
+                v-for="background in store.backgrounds"
+                :src="background"
+                :class="{ active: isSelected(background, store.BackgroundProperties.item) }"
+                @click="store.BackgroundProperties.item = background"
+                @dragstart="startDrag($event, background, 'background')"
               >
             </div>
           </div>
@@ -219,7 +220,7 @@
             <div class="color"></div>
           </div>
           <div class="flex-row">
-            <button class="bright">Use</button>
+            <button class="bright" @click="addBackground()" :disabled="!store.BackgroundProperties.item">Use</button>
           </div>
         </div>
       </div>

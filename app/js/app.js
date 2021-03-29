@@ -16,15 +16,17 @@ import bg3 from '../images/w-qjCHPZbeXCQ.jpg';
 import bg4 from '../images/jj-ying-7JX0-bfiuxQ.jpg';
 import FontFaceObserver from 'fontfaceobserver';
 
-import PropertiesManager from './propertiesManager';
-
 window.addEventListener('load', () => {
   Vue.use(VueHead);
   let fontList = new FontList(fonts);
   Promise.all(fontList.files().map(file => new FontFaceObserver(file.name, { style: file.style, weight: file.weight }).load()))
     .then(() => {
 
-      let store =  new Store({ fonts: fontList.fonts, images: [image1, image2, image3, image4] });
+      let store =  new Store({
+        fonts: fontList.fonts,
+        images: [image1, image2, image3, image4],
+        backgrounds: [bg1, bg2, bg3, bg4]
+      });
       Vue.component('toolbar', {
         template: '#toolbar',
         data: function() {
@@ -56,13 +58,6 @@ window.addEventListener('load', () => {
               { size: '566x800', name: 'A4' },
               { size: '800x800', name: 'Square' },
               { size: '820x312', name: 'Facebook Cover' },
-            ],
-            selectedBackground: null,
-            backgroundList: [
-              'joe-woods-4Zaq5xY5M_c.jpg',
-              'vincent-burkhead-LhlxYMfnTF0.jpg',
-              'w-qjCHPZbeXCQ.jpg',
-              'jj-ying-7JX0-bfiuxQ.jpg'
             ],
             selectedIcon: null,
             iconList: [
@@ -120,7 +115,7 @@ window.addEventListener('load', () => {
             for (let file of event.target.files) {
               if (file.type.startsWith('image/')) {
                 let url = URL.createObjectURL(file);
-                this.backgroundList.push(file.name)
+                this.store.backgrounds.push(url)
               }
             }
           },
@@ -135,6 +130,9 @@ window.addEventListener('load', () => {
           },
           addImage() {
             editor.addImage();
+          },
+          addBackground() {
+            editor.addBackground();
           },
           startDrag(event, item, type) {
             event.dataTransfer.dropEffect = 'move';

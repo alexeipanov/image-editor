@@ -53,7 +53,24 @@ class ImageProperties {
 }
 
 class BackgroundProperties {
+  constructor(options) {
+    this.item = options.item || null;
+  }
 
+  type() {
+    return 'BackgroundProperties';
+  }
+
+  static defaults(settings) {
+    return {
+    }
+  }
+
+  draw() {
+    return function() {
+      this.addBackground();
+    }
+  }
 }
 
 class IconProperties {
@@ -84,6 +101,8 @@ const typeProxyHandler = {
       return 'TextProperties';
       case 'image':
       return 'ImageProperties';
+      case 'background':
+      return 'BackgroundProperties';
     }
     return Reflect.get(...arguments);
   },

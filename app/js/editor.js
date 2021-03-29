@@ -153,28 +153,6 @@ class ImageEditor {
     }
   };
 
-  setBackground(image) {
-    let scale = Math.min(this.canvas.getWidth() / image.width, this.canvas.getHeight() / image.height);
-    if (scale > 1) {
-      scale = 1;
-    }
-    let width = Math.round(image.width * scale);
-    let height = Math.round(image.height * scale);
-    this.canvas.setDimensions({ width: width, height: height });
-    image.set({ scaleX: scale, scaleY: scale, originX: 'left', originY: 'top' });
-    this.canvas.setBackgroundImage(image, () => {
-      this.canvas.renderAll();
-      $(`#${this.config.id}`).trigger('onBackgroundChange', { width: width, height: height });
-    });
-  }
-
-  setBackgroundFromURL(image) {
-    fabric.Image.fromURL(image, (source) => {
-      this.setBackground(source);
-      this.saveHistory();
-    }, { crossOrigin: 'anonymous' });
-  }
-
   // setDrawingMode(mode) {
   //   this.canvas.isDrawingMode = mode;
   // }
@@ -241,6 +219,14 @@ class ImageEditor {
       });
       this.canvas.add(image);
       this.canvas.setActiveObject(image);
+    });
+  }
+
+  addBackground() {
+    fabric.Image.fromURL(this.store.BackgroundProperties.item, background => {
+      let scale = Math.max(this.canvas.getWidth() / background.width, this.canvas.getHeight() / background.height);
+      background.set({ scaleX: scale, scaleY: scale, originX: 'left', originY: 'top' });
+      this.canvas.setBackgroundImage(background, () => this.canvas.renderAll());
     });
   }
 
