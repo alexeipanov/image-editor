@@ -32,8 +32,7 @@ const iconsList = [
   'youtube'
 ];
 
-let fontsMeta = [];
-fonts_dir = 'node_modules/@fontsource/';
+let fonts_dir = 'node_modules/@fontsource/';
 
 const fetchFontMeta = font => fs.readFile(`${fonts_dir}${font}/metadata.json`, 'utf8')
   .then(json => {

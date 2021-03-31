@@ -1,28 +1,28 @@
-'use strict';
 import { fabric } from 'fabric';
 import HistoryManager from './history';
 import PropertiesManager from './propertiesManager';
-import Utils from './utils';
 
-const ZOOM_RATIO = 0.25;
-const GRID_COLOR = '#a6a6a6';
-const GRID_OPACITY = 0.5;
-const GRID_WIDTH = 1;
+// const ZOOM_RATIO = 0.25;
+// const GRID_COLOR = '#a6a6a6';
+// const GRID_OPACITY = 0.5;
+// const GRID_WIDTH = 1;
 
 class ImageEditor {
 
   constructor(options) {
     this.config = options;
     this.canvas = new fabric.Canvas(this.config.id);
-    this.canvas.setWidth(options.width);
-    this.canvas.setHeight(options.height);
-    if (options.image) {
-      this.setBackgroundFromURL(options.image);
-    }
-    this.historyManager = new HistoryManager();
-    this.state = [];
-    this.historyPos = 0;
-    this.saveHistory();
+    this.canvas.setDimensions({width: options.width, height: options.height})
+    // this.canvas.setWidth(options.width);
+    // this.canvas.setHeight(options.height);
+
+    // if (options.image) {
+    //   this.setBackgroundFromURL(options.image);
+    // }
+    // this.historyManager = new HistoryManager();
+    // this.state = [];
+    // this.historyPos = 0;
+    // this.saveHistory();
     this.store = options.store;
     this.propertiesManager = new PropertiesManager();
 
@@ -98,60 +98,59 @@ class ImageEditor {
     this.store.setProperties(properties.type(), properties);
   }
 
-  setSnap(snap) {
-    this.config.snap = snap;
-    // $('canvas#vcedit').trigger('onSnapToggle', snap);
-  };
+  // setSnap(snap) {
+  //   this.config.snap = snap;
+  // }
 
-  toggleSnap() {
-    this.setSnap(!this.config.snap);
-  };
+  // toggleSnap() {
+  //   this.setSnap(!this.config.snap);
+  // }
 
-  drawGrid() {
-    let grid = new fabric.Group();
-    let margin;
-    let zoom = this.getZoom();
-    let size = (VCWIDTH - margin) / ((VCABSWIDTH - 3) / 5);
-    for (var i = 0; i < ((canvas.width - margin) / size); i++) {
-      grid.add(new fabric.Line([i * size + margin / 2, 0, i * size + margin / 2, canvas.height], {
-        stroke: GRID_COLOR,
-        opacity: GRID_OPACITY,
-        selectable: false,
-        strokeWidth: GRID_WIDTH
-      }));
-    }
-    for (i = 0; i < ((canvas.height - margin) / size); i++) {
-      grid.add(new fabric.Line([0, i * size + margin / 2, canvas.width, i * size + margin / 2], {
-        stroke: GRID_COLOR,
-        opacity: GRID_OPACITY,
-        selectable: false,
-        strokeWidth: GRID_WIDTH
-      }));
-    }
-    this.grid = grid;
-    canvas.add(this.grid);
-    canvas.bringForward(this.grid);
-    canvas.renderAll();
-    $('canvas#vcedit').trigger('onGridToggle', 'draw');
-  };
+  // drawGrid() {
+  //   let grid = new fabric.Group();
+  //   let margin;
+  //   let zoom = this.getZoom();
+  //   let size = (VCWIDTH - margin) / ((VCABSWIDTH - 3) / 5);
+  //   for (var i = 0; i < ((canvas.width - margin) / size); i++) {
+  //     grid.add(new fabric.Line([i * size + margin / 2, 0, i * size + margin / 2, canvas.height], {
+  //       stroke: GRID_COLOR,
+  //       opacity: GRID_OPACITY,
+  //       selectable: false,
+  //       strokeWidth: GRID_WIDTH
+  //     }));
+  //   }
+  //   for (i = 0; i < ((canvas.height - margin) / size); i++) {
+  //     grid.add(new fabric.Line([0, i * size + margin / 2, canvas.width, i * size + margin / 2], {
+  //       stroke: GRID_COLOR,
+  //       opacity: GRID_OPACITY,
+  //       selectable: false,
+  //       strokeWidth: GRID_WIDTH
+  //     }));
+  //   }
+  //   this.grid = grid;
+  //   canvas.add(this.grid);
+  //   canvas.bringForward(this.grid);
+  //   canvas.renderAll();
+  //   $('canvas#vcedit').trigger('onGridToggle', 'draw');
+  // }
 
-  deleteGrid() {
-    canvas.remove(this.grid);
-    canvas.renderAll();
-    this.grid = null;
-    $('canvas#vcedit').trigger('onGridToggle', 'delete');
-  };
+  // deleteGrid() {
+  //   canvas.remove(this.grid);
+  //   canvas.renderAll();
+  //   this.grid = null;
+  //   $('canvas#vcedit').trigger('onGridToggle', 'delete');
+  // }
 
-  toggleGrid() {
-    switch (this.grid) {
-      case null:
-      this.drawGrid();
-      break;
-      default:
-      this.deleteGrid();
-      break;
-    }
-  };
+  // toggleGrid() {
+  //   switch (this.grid) {
+  //     case null:
+  //     this.drawGrid();
+  //     break;
+  //     default:
+  //     this.deleteGrid();
+  //     break;
+  //   }
+  // }
 
   // setDrawingMode(mode) {
   //   this.canvas.isDrawingMode = mode;
@@ -183,10 +182,10 @@ class ImageEditor {
   //   this.canvas.freeDrawingBrush.strokeLineJoin = 'round';
   // }
 
-  setTextColor(color) {
-    this.textColor = new fabric.Color(color);
-    this.textColor.setAlpha(this.config.opacity);
-  }
+  // setTextColor(color) {
+  //   this.textColor = new fabric.Color(color);
+  //   this.textColor.setAlpha(this.config.opacity);
+  // }
 
 
 
@@ -230,6 +229,31 @@ class ImageEditor {
     });
   }
 
+  addIcon() {
+    let source = this.store.IconProperties.extractSVG(this.store.IconProperties.item);
+    fabric.loadSVGFromString(source, (objects, options) => {
+      let icon = fabric.util.groupSVGElements(objects, options);
+      let scaleFactorX = 1 / 5;
+      let scaleFactorY = 1 / 5;
+      if (icon.height >= this.canvas.height) {
+        scaleFactorY = (this.canvas.height - this.store.SettingProperties.padding * 2) / 5 /icon.height;
+      }
+      if (icon.width >= this.canvas.width) {
+        scaleFactorX = (this.canvas.width - this.store.SettingProperties.padding * 2) / 5 / icon.width;
+      }
+      let scaleFactor = Math.min(scaleFactorX, scaleFactorY);
+      icon.set({
+        top: this.store.SettingProperties.padding,
+        left: this.store.SettingProperties.padding,
+        scaleY: scaleFactor,
+        scaleX: scaleFactor
+      });
+      this.canvas.add(icon);
+      this.canvas.setActiveObject(icon);
+
+    });
+  }
+
   removeObject() {
     let activeObject = this.canvas.getActiveObject();
     if (activeObject) {
@@ -237,85 +261,85 @@ class ImageEditor {
     }
   }
 
-  hasSelection() {
-    return this.canvas.getActiveObject() !== null;
-  }
+  // hasSelection() {
+  //   return this.canvas.getActiveObject() !== null;
+  // }
 
-  getImagePromise(source) {
-    return new Promise((resolve) => fabric.loadSVGFromURL(source, resolve));
-  }
+  // getImagePromise(source) {
+  //   return new Promise((resolve) => fabric.loadSVGFromURL(source, resolve));
+  // }
 
-  crop(size) {
-    if (size.width) {
-      this.canvas.setWidth(size.width);
-    }
-    if (size.height) {
-      this.canvas.setHeight(size.height);
-    }
-    this.canvas.renderAll();
-  }
+  // crop(size) {
+  //   if (size.width) {
+  //     this.canvas.setWidth(size.width);
+  //   }
+  //   if (size.height) {
+  //     this.canvas.setHeight(size.height);
+  //   }
+  //   this.canvas.renderAll();
+  // }
 
-  resize(size) {
-    let image = this.canvas.backgroundImage;
-    this.crop(size);
-    this.setBackground(image);
-  }
+  // resize(size) {
+  //   let image = this.canvas.backgroundImage;
+  //   this.crop(size);
+  //   this.setBackground(image);
+  // }
 
-  zoomIn() {
-    let zoom = this.canvas.getZoom() + ZOOM_RATIO;
-    this.canvas.setZoom(zoom);
-    this.canvas.zoomToPoint(new fabric.Point(this.canvas.width / 2, this.canvas.height / 2), zoom);
-  }
+  // zoomIn() {
+  //   let zoom = this.canvas.getZoom() + ZOOM_RATIO;
+  //   this.canvas.setZoom(zoom);
+  //   this.canvas.zoomToPoint(new fabric.Point(this.canvas.width / 2, this.canvas.height / 2), zoom);
+  // }
 
-  zoomOut() {
-    let zoom = this.canvas.getZoom() - ZOOM_RATIO;
-    this.canvas.setZoom(zoom);
-    this.canvas.zoomToPoint(new fabric.Point(this.canvas.width / 2, this.canvas.height / 2), zoom);
-    if (Math.round(zoom) === 1) {
-      this.canvas.absolutePan({ x: 0, y: 0 });
-    }
-  }
+  // zoomOut() {
+  //   let zoom = this.canvas.getZoom() - ZOOM_RATIO;
+  //   this.canvas.setZoom(zoom);
+  //   this.canvas.zoomToPoint(new fabric.Point(this.canvas.width / 2, this.canvas.height / 2), zoom);
+  //   if (Math.round(zoom) === 1) {
+  //     this.canvas.absolutePan({ x: 0, y: 0 });
+  //   }
+  // }
 
-  saveHistory() {
-    this.state.push(JSON.stringify(this.canvas));
-    if (this.state.length >= 50) {
-      this.state.shift();
-    }
-    this.historyPos = this.state.length - 1;
-  }
+  // saveHistory() {
+  //   this.state.push(JSON.stringify(this.canvas));
+  //   if (this.state.length >= 50) {
+  //     this.state.shift();
+  //   }
+  //   this.historyPos = this.state.length - 1;
+  // }
 
-  clearHistory() {
-    this.state = [];
-    this.historyPos = 0;
-  }
+  // clearHistory() {
+  //   this.state = [];
+  //   this.historyPos = 0;
+  // }
 
-  undo() {
-    if (this.historyPos > 0) {
-      this.historyPos--;
-      this.canvas.loadFromJSON(this.state[this.historyPos], function() {});
-    }
-  }
+  // undo() {
+  //   if (this.historyPos > 0) {
+  //     this.historyPos--;
+  //     this.canvas.loadFromJSON(this.state[this.historyPos], function() {});
+  //   }
+  // }
 
-  redo() {
-    if (this.historyPos < this.state.length - 1) {
-      this.historyPos++;
-      this.canvas.loadFromJSON(this.state[this.historyPos], function() {});
-    }
-  }
+  // redo() {
+  //   if (this.historyPos < this.state.length - 1) {
+  //     this.historyPos++;
+  //     this.canvas.loadFromJSON(this.state[this.historyPos], function() {});
+  //   }
+  // }
 
-  saveToImage(format, callback) {
-    return this.canvas.toDataURL({ format: format });
-  }
+  // saveToImage(format, callback) {
+  //   return this.canvas.toDataURL({ format: format });
+  // }
 
-  clear() {
-    this.canvas.clear();
-    this.canvas.backgroundImage = null;
-    this.clearHistory();
-    this.saveHistory();
-    this.canvas.setWidth(this.config.width);
-    this.canvas.setHeight(this.config.height);
-    $(`#${this.config.id}`).trigger('onBackgroundChange', { width: this.config.width, height: this.config.height });
-  }
+  // clear() {
+  //   this.canvas.clear();
+  //   this.canvas.backgroundImage = null;
+  //   this.clearHistory();
+  //   this.saveHistory();
+  //   this.canvas.setWidth(this.config.width);
+  //   this.canvas.setHeight(this.config.height);
+  //   $(`#${this.config.id}`).trigger('onBackgroundChange', { width: this.config.width, height: this.config.height });
+  // }
 
   updateObject(options) {
     let activeObject = this.canvas.getActiveObject();

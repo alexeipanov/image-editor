@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { FontEntry, FontList }  from '../js/fontList.js';
+import { FontList }  from '../js/fontList.js';
 
 describe('FontList class', function() {
   let fontList = new FontList([

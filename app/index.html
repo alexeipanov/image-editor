@@ -230,17 +230,23 @@
         <div class="body" v-if="panel === 'icon'">
           <div class="flex-row">
             <div class="icon-list">
-              <div class="icon-cell" v-for="icon in iconList" :class="{ active: isSelected(icon, selectedIcon) }" @click="selectedIcon = icon">
+              <div class="icon-cell"
+                v-for="icon in store.icons"
+                :class="{ active: isSelected(icon, store.IconProperties.item) }"
+                @click="store.IconProperties.item = icon"
+              >
                 <svg class="icon"><use :href="'images/icons.svg#' + icon"></use></svg>
               </div>
             </div>
           </div>
         <div class="flex-row start">
-          <button class="bright">Use</button>
+          <button class="bright" @click="addIcon()" :disabled="!store.IconProperties.item">Use</button>
         </div>
       </div>
     </div>
   </template>
+
+  <object data="images/icons.svg" type="image/svg+xml" id="icons" width="100%" height="100%"></object>
 
 </body>
 </html>

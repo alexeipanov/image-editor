@@ -15,6 +15,7 @@ import bg2 from '../images/vincent-burkhead-LhlxYMfnTF0.jpg';
 import bg3 from '../images/w-qjCHPZbeXCQ.jpg';
 import bg4 from '../images/jj-ying-7JX0-bfiuxQ.jpg';
 import FontFaceObserver from 'fontfaceobserver';
+import SvgExtractor from './utils/svgExtractor';
 
 window.addEventListener('load', () => {
   Vue.use(VueHead);
@@ -25,8 +26,24 @@ window.addEventListener('load', () => {
       let store =  new Store({
         fonts: fontList.fonts,
         images: [image1, image2, image3, image4],
-        backgrounds: [bg1, bg2, bg3, bg4]
+        backgrounds: [bg1, bg2, bg3, bg4],
+        icons: [
+          'behance',
+          'facebook',
+          'github',
+          'instagram',
+          'linkedin',
+          'pinterest',
+          'reddit',
+          'snapchat',
+          'soundcloud',
+          'strava',
+          'twitter',
+          'vimeo',
+          'youtube'
+        ]
       });
+      store.IconProperties.extractSVG = SvgExtractor.extract();
       Vue.component('toolbar', {
         template: '#toolbar',
         data: function() {
@@ -58,22 +75,6 @@ window.addEventListener('load', () => {
               { size: '566x800', name: 'A4' },
               { size: '800x800', name: 'Square' },
               { size: '820x312', name: 'Facebook Cover' },
-            ],
-            selectedIcon: null,
-            iconList: [
-              'behance',
-              'facebook',
-              'github',
-              'instagram',
-              'linkedin',
-              'pinterest',
-              'reddit',
-              'snapchat',
-              'soundcloud',
-              'strava',
-              'twitter',
-              'vimeo',
-              'youtube'
             ],
             textColor: '#000000',
             store: store,
@@ -133,6 +134,9 @@ window.addEventListener('load', () => {
           },
           addBackground() {
             editor.addBackground();
+          },
+          addIcon() {
+            editor.addIcon();
           },
           startDrag(event, item, type) {
             event.dataTransfer.dropEffect = 'move';

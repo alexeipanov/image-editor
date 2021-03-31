@@ -6,7 +6,7 @@ export default class IconProperties extends DrawingProperties {
     this.item = options.item || null;
   }
 
-  extractSVG() {
+  extractSVG(source) {
 
   }
 
