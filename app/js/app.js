@@ -44,6 +44,7 @@ window.addEventListener('load', () => {
         ]
       });
       store.IconProperties.extractSVG = SvgExtractor.extract();
+      store.onSelectionChange = type => app.panel = type;
       Vue.component('toolbar', {
         template: '#toolbar',
         data: function() {
@@ -90,7 +91,7 @@ window.addEventListener('load', () => {
           },
           'store.TextProperties.fontFamily': function() {
             this.font = this.store.fonts.find(font => font.name === this.store.TextProperties.fontFamily) || this.store.fonts[0];
-          }
+          },
         },
         methods: {
           openPanel(panel) {
@@ -146,10 +147,10 @@ window.addEventListener('load', () => {
         },
       });
 
-      new Vue({
+      let app = new Vue({
         el: 'section.app',
         data: {
-          panel: 'new',
+          panel: 'TextProperties',
           text: ''
         },
         head: {

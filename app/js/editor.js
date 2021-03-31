@@ -86,16 +86,12 @@ class ImageEditor {
 
   fireObjectSelection() {
     let activeObject = this.canvas.getActiveObject();
-    this.store.selection = true;
-    let properties = this.propertiesManager.create(activeObject.type, activeObject);
-    this.store.setProperties(properties.type(), properties);
+    this.store.onSelect(activeObject);
   }
 
   fireClearSelection() {
     let activeObject = this.canvas.getActiveObject();
-    this.store.selection = false;
-    let properties = this.propertiesManager.create(activeObject.type, this.propertiesManager.defaults(activeObject.type, this.store));
-    this.store.setProperties(properties.type(), properties);
+    this.store.onClearSelection(activeObject);
   }
 
   // setSnap(snap) {
@@ -225,7 +221,7 @@ class ImageEditor {
     fabric.Image.fromURL(this.store.BackgroundProperties.item, background => {
       let scale = Math.max(this.canvas.getWidth() / background.width, this.canvas.getHeight() / background.height);
       background.set({ scaleX: scale, scaleY: scale, originX: 'left', originY: 'top' });
-      this.canvas.setBackgroundImage(background, () => this.canvas.renderAll());
+      this.canvas.setBackgroundImage(background, () => this.canvas.requestRenderAll());
     });
   }
 
@@ -345,8 +341,7 @@ class ImageEditor {
     let activeObject = this.canvas.getActiveObject();
     if (activeObject) {
       Object.assign(activeObject, options);
-      this.canvas.renderAll();
-      // this.saveHistory();
+      this.canvas.requestRenderAll();
     }
   }
 }

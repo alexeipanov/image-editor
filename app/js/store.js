@@ -58,4 +58,17 @@ export default class Store {
   setProperties(type, properties) {
     Object.assign(this[type], properties);
   }
+
+  onSelect(object) {
+    this.selection = true;
+    let properties = propertiesManager.create(object.type, object);
+    this.setProperties(properties.type(), properties);
+    this.onSelectionChange(properties.type());
+  }
+
+  onClearSelection(object) {
+    this.selection = false;
+    let properties = propertiesManager.create(object.type, propertiesManager.defaults(object.type, this));
+    this.setProperties(properties.type(), properties);
+  }
 }
