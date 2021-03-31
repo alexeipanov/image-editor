@@ -1,11 +1,10 @@
 import IconProperties from './drawingProperties/iconProperties';
-import SizeProperties from './drawingProperties/sizeProperties';
 import TextProperties from './drawingProperties/textProperties';
 import ImageProperties from './drawingProperties/imageProperties';
-import SettingProperties from './drawingProperties/settingProperties';
+import DocumentProperties from './drawingProperties/documentProperties';
 import BackgroundProperties from './drawingProperties/backgroundProperties';
 
-const properties = { SizeProperties, TextProperties, ImageProperties, BackgroundProperties, IconProperties, SettingProperties };
+const properties = { TextProperties, ImageProperties, BackgroundProperties, IconProperties, DocumentProperties };
 
 const typeProxyHandler = {
   get: function(target, prop) {
@@ -28,6 +27,10 @@ export default class propertiesManager {
     let proxiedType = new Proxy({ type: type }, typeProxyHandler).type;
     let Properties = properties[proxiedType];
     return new Properties(options);
+  }
+
+  static type(type) {
+    return new Proxy({ type: type }, typeProxyHandler).type;
   }
 
   defaults(type, settings) {

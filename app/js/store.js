@@ -10,11 +10,33 @@ export default class Store {
     this.backgrounds = options.backgrounds;
     this.icons = options.icons;
     this.sizes = [7, 8, 9, 10, 11, 12, 14, 16, 18, 20, 24, 36, 48, 64, 72];
+    this.icons = [
+      'behance',
+      'facebook',
+      'github',
+      'instagram',
+      'linkedin',
+      'pinterest',
+      'reddit',
+      'snapchat',
+      'soundcloud',
+      'strava',
+      'twitter',
+      'vimeo',
+      'youtube'
+    ];
+    this.formats = [
+      { size: '800x536', name: 'Business Card' },
+      { size: '618x800', name: 'Flyer' },
+      { size: '566x800', name: 'A4' },
+      { size: '800x800', name: 'Square' },
+      { size: '820x312', name: 'Facebook Cover' }
+    ];
+    this.IconProperties = {};
     this.TextProperties = {};
     this.ImageProperties = {};
-    this.SettingProperties = {};
+    this.DocumentProperties = {};
     this.BackgroundProperties = {};
-    this.IconProperties = {};
     let textProperties = {
       fill: '#000',
       fontSize: 12,
@@ -34,25 +56,26 @@ export default class Store {
       scaleX: 1,
       scaleY: 1
     };
-    let settingProperties = {
-      padding: 10
-    }
     let backgroundProperties = {
       item: null
     };
     let iconProperties = {
       fill: '#000',
     };
+    let documentProperties = {
+      format: this.formats[0],
+      padding: 10
+    };
     let TextProperties = propertiesManager.create('TextProperties', textProperties);
     this.setProperties('TextProperties', TextProperties);
     let ImageProperties = propertiesManager.create('ImageProperties', imageProperties);
     this.setProperties('ImageProperties', ImageProperties);
-    let SettingProperties = propertiesManager.create('SettingProperties', settingProperties);
-    this.setProperties('SettingProperties', SettingProperties);
     let BackgroundProperties = propertiesManager.create('BackgroundProperties', backgroundProperties);
     this.setProperties('BackgroundProperties', BackgroundProperties);
     let IconProperties = propertiesManager.create('IconProperties', iconProperties);
     this.setProperties('IconProperties', IconProperties);
+    let DocumentProperties = propertiesManager.create('DocumentProperties', documentProperties);
+    this.setProperties('DocumentProperties', DocumentProperties);
   }
 
   setProperties(type, properties) {

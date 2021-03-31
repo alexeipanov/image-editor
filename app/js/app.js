@@ -27,21 +27,6 @@ window.addEventListener('load', () => {
         fonts: fontList.fonts,
         images: [image1, image2, image3, image4],
         backgrounds: [bg1, bg2, bg3, bg4],
-        icons: [
-          'behance',
-          'facebook',
-          'github',
-          'instagram',
-          'linkedin',
-          'pinterest',
-          'reddit',
-          'snapchat',
-          'soundcloud',
-          'strava',
-          'twitter',
-          'vimeo',
-          'youtube'
-        ]
       });
       store.IconProperties.extractSVG = SvgExtractor.extract();
       store.onSelectionChange = type => app.panel = type;
@@ -69,17 +54,8 @@ window.addEventListener('load', () => {
         template: '#sidebar',
         data: function() {
           return {
-            selectedSize: '800x800',
-            sizeList: [
-              { size: '800x536', name: 'Business Card' },
-              { size: '618x800', name: 'Flyer' },
-              { size: '566x800', name: 'A4' },
-              { size: '800x800', name: 'Square' },
-              { size: '820x312', name: 'Facebook Cover' },
-            ],
-            textColor: '#000000',
             store: store,
-            font: store.fonts[0]
+            font: store.fonts[0],
           };
         },
         watch: {

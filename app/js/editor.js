@@ -200,15 +200,15 @@ class ImageEditor {
       let scaleFactorX = 1;
       let scaleFactorY = 1;
       if (image.height >= this.canvas.height) {
-        scaleFactorY = (this.canvas.height - this.store.SettingProperties.padding * 2) / image.height;
+        scaleFactorY = (this.canvas.height - this.store.DocumentProperties.padding * 2) / image.height;
       }
       if (image.width >= this.canvas.width) {
-        scaleFactorX = (this.canvas.width - this.store.SettingProperties.padding * 2) / image.width;
+        scaleFactorX = (this.canvas.width - this.store.DocumentProperties.padding * 2) / image.width;
       }
       let scaleFactor = Math.min(scaleFactorX, scaleFactorY);
       image.set({
-        top: this.store.SettingProperties.padding,
-        left: this.store.SettingProperties.padding,
+        top: this.store.DocumentProperties.padding,
+        left: this.store.DocumentProperties.padding,
         scaleY: scaleFactor,
         scaleX: scaleFactor
       });
@@ -232,15 +232,15 @@ class ImageEditor {
       let scaleFactorX = 1 / 5;
       let scaleFactorY = 1 / 5;
       if (icon.height >= this.canvas.height) {
-        scaleFactorY = (this.canvas.height - this.store.SettingProperties.padding * 2) / 5 /icon.height;
+        scaleFactorY = (this.canvas.height - this.store.DocumentProperties.padding * 2) / 5 /icon.height;
       }
       if (icon.width >= this.canvas.width) {
-        scaleFactorX = (this.canvas.width - this.store.SettingProperties.padding * 2) / 5 / icon.width;
+        scaleFactorX = (this.canvas.width - this.store.DocumentProperties.padding * 2) / 5 / icon.width;
       }
       let scaleFactor = Math.min(scaleFactorX, scaleFactorY);
       icon.set({
-        top: this.store.SettingProperties.padding,
-        left: this.store.SettingProperties.padding,
+        top: this.store.DocumentProperties.padding,
+        left: this.store.DocumentProperties.padding,
         scaleY: scaleFactor,
         scaleX: scaleFactor
       });
@@ -339,7 +339,7 @@ class ImageEditor {
 
   updateObject(options) {
     let activeObject = this.canvas.getActiveObject();
-    if (activeObject) {
+    if (activeObject && PropertiesManager.type(activeObject.type) === options.type) {
       Object.assign(activeObject, options);
       this.canvas.requestRenderAll();
     }

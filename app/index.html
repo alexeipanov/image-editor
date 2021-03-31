@@ -87,12 +87,31 @@
   <template id="sidebar">
     <div class="accordion">
       <div class="panel" :class="{ active: isSelected(panel, 'DocumentProperties') }">
-        <div class="header" @click="openPanel('DocumentProperties')">New</div>
+        <div class="header" @click="openPanel('DocumentProperties')">Document</div>
         <div class="body" v-if="panel === 'DocumentProperties'">
-          <select v-model="selectedSize">
-            <option v-for="size in sizeList" :value="size.size">{{size.name}}</option>
-          </select>
-          <button @click="newDrawing(selectedSize)">Create</button>
+          <div class="flex-column">
+            <div class="flex-row">
+              <div class="element-group">
+                <label for="format">Format</label>
+                <select id="format" v-model="store.DocumentProperties.format">
+                  <option v-for="format in store.formats" :value="format">{{format.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex-row">
+              <div class="element-group">
+                <label for="padding">Padding</label>
+                <input id="padding" v-model.number="store.DocumentProperties.padding">
+              </div>
+              <div class="element-group">
+                <label for="grid-size">Grid Size</label>
+                <input id="grid-size" v-model.number="store.DocumentProperties.gridSize">
+              </div>
+            </div>
+            <div class="flex-row">
+              <button @click="newDrawing(store.DocumentProperties.format.size)">Create</button>
+            </div>
+          </div>
         </div>
       </div>
 
