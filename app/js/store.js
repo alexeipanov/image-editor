@@ -38,33 +38,18 @@ export default class Store {
     this.DocumentProperties = {};
     this.BackgroundProperties = {};
     let textProperties = {
-      fill: '#000',
-      fontSize: 12,
       fontStyle: options.fonts[0].styles[0],
       fontWeight: options.fonts[0].weights[0],
       fontFamily: options.fonts[0].name,
-      textAlign: 'left',
-      textDecoration: 'none',
-      lockUniScaling: true,
-      lineHeight: 1.5,
-      scaleX: 1,
-      scaleY: 1,
-      text: ''
     };
     let imageProperties = {
-      item: null,
-      scaleX: 1,
-      scaleY: 1
     };
     let backgroundProperties = {
-      item: null
     };
     let iconProperties = {
-      fill: '#000',
     };
     let documentProperties = {
       format: this.formats[0],
-      padding: 10
     };
     let TextProperties = propertiesManager.create('TextProperties', textProperties);
     this.setProperties('TextProperties', TextProperties);

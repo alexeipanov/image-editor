@@ -226,7 +226,7 @@
                 v-for="background in store.backgrounds"
                 :src="background"
                 :class="{ active: isSelected(background, store.BackgroundProperties.item) }"
-                @click="store.BackgroundProperties.item = background"
+                @click="setBackground()"
                 @dragstart="startDrag($event, background, 'background')"
               >
             </div>
@@ -239,7 +239,7 @@
             <div class="color"></div>
           </div>
           <div class="flex-row">
-            <button class="bright" @click="addBackground()" :disabled="!store.BackgroundProperties.item">Use</button>
+            <button @click="clearBackground()" :disabled="!store.BackgroundProperties.item">Clear</button>
           </div>
         </div>
       </div>
