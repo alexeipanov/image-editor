@@ -97,6 +97,7 @@ window.addEventListener('load', () => {
               }
             }
           },
+          setBackground(img) {},
           uploadImages() {
             this.$refs.imageInput.click();
           },
